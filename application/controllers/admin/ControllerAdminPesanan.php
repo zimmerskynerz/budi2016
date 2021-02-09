@@ -41,13 +41,29 @@ class ControllerAdminPesanan extends CI_Controller
     }
     public function crudrental()
     {
-        if (isset($_POST['reset_password'])) :
+        if (isset($_POST['terima_rental_dp'])) :
             # code...
-            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Guru!</div>');
-            redirect('admin/rental/sopir');
+            $this->update_model->terima_rental_dp();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menerima DP!</div>');
+            redirect('admin/pesanan/rental');
         endif;
-        if (isset($_POST['hapus_sopir'])) :
-        # code...
+        if (isset($_POST['tolak_rental_dp'])) :
+            # code...
+            $this->update_model->tolak_rental_dp();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menolak DP!</div>');
+            redirect('admin/pesanan/rental');
+        endif;
+        if (isset($_POST['terima_rental_lunas'])) :
+            # code...
+            $this->update_model->terima_rental_lunas();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menerima Pembayaran Lunas!</div>');
+            redirect('admin/pesanan/rental');
+        endif;
+        if (isset($_POST['tolak_rental_lunas'])) :
+            # code...
+            $this->update_model->tolak_rental_lunas();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menolak Pembayaran Lunas!</div>');
+            redirect('admin/pesanan/rental');
         endif;
         if (isset($_POST['ubah_sopir'])) :
         # code...

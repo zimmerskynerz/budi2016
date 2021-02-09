@@ -21,8 +21,8 @@ class ControllerAdminJadwal extends CI_Controller
     {
         $cek_data = $this->db->get_where('tbl_login', ['email' => $this->session->userdata('email')])->row_array();
         if ($cek_data['level'] == 'ADMIN') :
-            $data_pesanan_rental        = $this->select_model->getDataPesananRental();
-            $pesanan_paket    = $this->select_model->getDataPesananPaket();
+            $data_pesanan_rental        = $this->select_model->getDataPesananRentalJadwal();
+            $pesanan_paket              = $this->select_model->getDataPesananPaketJadwal();
             $data = array(
                 'folder'       => 'jadwal',
                 'halaman'      => 'jadwal_list',

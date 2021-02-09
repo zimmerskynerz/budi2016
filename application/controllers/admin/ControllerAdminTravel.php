@@ -104,13 +104,11 @@ class ControllerAdminTravel extends CI_Controller
     {
         $cek_data = $this->db->get_where('tbl_login', ['email' => $this->session->userdata('email')])->row_array();
         if ($cek_data['level'] == 'ADMIN') :
-            $data_rental       = $this->select_model->getDataRental();
-            $data_paket        = $this->select_model->getDataPaket();
+            $data_paket        = $this->db->get_where('tbl_paket', ['status' => 'ADA'])->result();
             $data = array(
                 'folder'         => 'travel',
                 'halaman'        => 'paket',
                 // Halaman data rental
-                'data_rental'    => $data_rental,
                 'data_paket'     => $data_paket
             );
             $this->load->view('admin/include/index', $data);
@@ -127,30 +125,13 @@ class ControllerAdminTravel extends CI_Controller
     public function crudpaket()
     {
         if (isset($_POST['simpan_paket'])) :
-            # code...
-            $id_rental    = $this->input->post('id_rental');
-            $cek_rental   = $this->db->get_where('tbl_paket', ['id_rental' => $id_rental, 'status' => 'ADA'])->row_array();
-            if ($cek_rental > 0) :
-                # code...
-                $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Paket Wisata Sudah Ada!</div>');
-            else :
-                $this->insert_model->simpan_paket();
-                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Paket WIsata!</div>');
-            endif;
+            $this->insert_model->simpan_paket();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Paket WIsata!</div>');
             redirect('admin/travel/paket');
         endif;
         if (isset($_POST['ubah_paket'])) :
-            # code...
-            $id_rental    = $this->input->post('id_rental');
-            $cek_rental   = $this->db->get_where('tbl_paket', ['id_rental' => $id_rental, 'status' => 'ADA'])->row_array();
-            if ($cek_rental > 0) :
-                # code...
-                $this->update_model->ubah_paket();
-                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Merubah Paket WIsata!</div>');
-            else :
-                $this->update_model->ubah_paket_full();
-                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Merubah Paket WIsata!</div>');
-            endif;
+            $this->update_model->ubah_paket();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Merubah Paket WIsata!</div>');
             redirect('admin/travel/paket');
         endif;
         if (isset($_POST['hapus_paket'])) :

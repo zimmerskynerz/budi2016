@@ -103,13 +103,13 @@ class Insert_model extends CI_Model
     {
         $data_paket = array(
             'id_paket'       => '',
-            'id_rental'      => $this->input->post('id_rental'),
             'nm_paket'       => $this->input->post('nm_paket'),
             'destination'    => $this->input->post('destination'),
             'ket_paket'      => $this->input->post('ket_paket'),
             'hg_modal'       => $this->input->post('hg_modal'),
             'hg_standard'    => $this->input->post('hg_standard'),
             'hg_minim'       => $this->input->post('hg_minim'),
+            'jml_hari'       => $this->input->post('jml_hari'),
             'status'         => 'ADA'
         );
         $this->db->insert('tbl_paket', $data_paket);

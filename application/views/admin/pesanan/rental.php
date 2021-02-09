@@ -36,8 +36,8 @@
                                             <td><?= $Data_pesanan_rental->no_registrasi ?></td>
                                             <td><?= date('d F Y', strtotime($Data_pesanan_rental->tgl_berangkat)) ?></td>
                                             <td><?= date('d F Y', strtotime($Data_pesanan_rental->tgl_selesai)) ?></td>
-                                            <td><?= $Data_pesanan_rental->jml_hari ?></td>
-                                            <td><?= $Data_pesanan_rental->harga_total ?></td>
+                                            <td><?= $Data_pesanan_rental->jml_hari ?> Hari</td>
+                                            <td>Rp <?= $Data_pesanan_rental->harga_total ?>,-</td>
                                             <?php if ($Data_pesanan_rental->status_rental == 'DP') : ?>
                                                 <td style="text-align: center;">
                                                     <a id="rental_detail_dp" href="javascript:void(0);" class="bs-tooltip" data-toggle="modal" data-target="#detail_rental_dp" data-placement="top" title="" data-original-title="Detail" data-no_rental="<?= $Data_pesanan_rental->no_rental ?>" data-bukti_dp="<?= $Data_pesanan_rental->bukti_dp ?>" data-tgl_dp="<?= date('d F Y', strtotime($Data_pesanan_rental->tgl_dp)) ?>" ?>
@@ -52,12 +52,12 @@
                                                 </td>
                                             <?php elseif ($Data_pesanan_rental->status_rental == 'DP_TERIMA') : ?>
                                                 <td>DP Diterima</td>
-                                            <?php elseif ($Data_pesanan_rental->status_rental == 'LUNAS_TERIMA') : ?>
-                                                <td>Lunas</td>
+                                            <?php elseif ($Data_pesanan_rental->status_rental == 'KONFIRMASI') : ?>
+                                                <td>LUNAS</td>
                                             <?php elseif ($Data_pesanan_rental->status_rental == 'GAGAL_DP') : ?>
                                                 <td>Gagal Bukti DP</td>
                                             <?php elseif ($Data_pesanan_rental->status_rental == 'GAGAL_LUNAS') : ?>
-                                                <td>Gagal Bukti LUNAS</td>
+                                                <td>Gagal Bukti Lunas</td>
                                             <?php endif; ?>
                                         </tr>
                                     <?php
@@ -90,7 +90,6 @@
             <div class="modal-body" id="detail_body">
                 <?php echo form_open_multipart('admin/pesanan/crudrental'); ?>
                 <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                <label for="">No Registrasi</label>
                 <div class="form-group mb-3">
                     <label for="example-email">No Rental</label>
                     <input type="text" readonly id="no_rental" name="no_rental" readonly name="example-email" class="form-control" placeholder="Jumlah Penumpang">
@@ -128,7 +127,6 @@
             <div class="modal-body" id="detail_body">
                 <?php echo form_open_multipart('admin/pesanan/crudrental'); ?>
                 <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
-                <label for="">No Registrasi</label>
                 <div class="form-group mb-3">
                     <label for="example-email">No Rental</label>
                     <input type="text" readonly id="no_rental" name="no_rental" readonly name="example-email" class="form-control" placeholder="Jumlah Penumpang">

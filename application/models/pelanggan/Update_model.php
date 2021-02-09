@@ -2,6 +2,118 @@
 
 class Update_model extends CI_Model
 {
+    // KElola bukti pembayaran DP
+    function kirim_bukti_dp_rental()
+    {
+        $config['upload_path']   = './assets/bukti_tranfer';
+        $config['allowed_types'] = 'jpeg|jpg|png|gif';
+        $config['encrypt_name']  = true;
+        $config['overwrite']     = true;
+        $config['max_size']      = 20024; // 10MB
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('bukti_dp')) {
+            $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Gagal Mengirim Bukti Tranfer!</div>');
+        } else {
+            $_FILES['file']['name'] = $_FILES['bukti_dp']['name'];
+            $_FILES['file']['type'] = $_FILES['bukti_dp']['type'];
+            $_FILES['file']['tmp_name'] = $_FILES['bukti_dp']['tmp_name'];
+            $_FILES['file']['size'] = $_FILES['bukti_dp']['size'];
+            $uploadData = $this->upload->data();
+            $data_dp = array(
+                'tgl_dp'            => date('Y-m-d'),
+                'bukti_dp'          => $uploadData['file_name'],
+                'status_rental'     => 'DP'
+            );
+            $this->db->where('no_rental', $this->input->post('no_rental'));
+            $this->db->update('pesanan_rental', $data_dp);
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Mengirim Bukti DP!</div>');
+        };
+    }
+    function kirim_bukti_dp_rental_ulang()
+    {
+        $config['upload_path']   = './assets/bukti_tranfer';
+        $config['allowed_types'] = 'jpeg|jpg|png|gif';
+        $config['encrypt_name']  = true;
+        $config['overwrite']     = true;
+        $config['max_size']      = 20024; // 10MB
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('bukti_dp')) {
+            $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Gagal Mengirim Bukti Tranfer!</div>');
+        } else {
+            $_FILES['file']['name'] = $_FILES['bukti_dp']['name'];
+            $_FILES['file']['type'] = $_FILES['bukti_dp']['type'];
+            $_FILES['file']['tmp_name'] = $_FILES['bukti_dp']['tmp_name'];
+            $_FILES['file']['size'] = $_FILES['bukti_dp']['size'];
+            $uploadData = $this->upload->data();
+            $data_dp = array(
+                'tgl_dp'            => date('Y-m-d'),
+                'bukti_dp'          => $uploadData['file_name'],
+                'status_rental'     => 'DP'
+            );
+            $this->db->where('no_rental', $this->input->post('no_rental'));
+            $this->db->update('pesanan_rental', $data_dp);
+            $foto_lama = htmlspecialchars($this->input->post('bukti_dp_lama'));
+            $berkas_lama = './assets/bukti_tranfer/' . $foto_lama . '';
+            unlink($berkas_lama);
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Mengirim Bukti DP!</div>');
+        };
+    }
+    // Kelola Bukti Pembayaran Lunas
+    function kirim_bukti_rental_lunas()
+    {
+        $config['upload_path']   = './assets/bukti_tranfer';
+        $config['allowed_types'] = 'jpeg|jpg|png|gif';
+        $config['encrypt_name']  = true;
+        $config['overwrite']     = true;
+        $config['max_size']      = 20024; // 10MB
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('bukti_dp')) {
+            $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Gagal Mengirim Bukti Tranfer!</div>');
+        } else {
+            $_FILES['file']['name'] = $_FILES['bukti_dp']['name'];
+            $_FILES['file']['type'] = $_FILES['bukti_dp']['type'];
+            $_FILES['file']['tmp_name'] = $_FILES['bukti_dp']['tmp_name'];
+            $_FILES['file']['size'] = $_FILES['bukti_dp']['size'];
+            $uploadData = $this->upload->data();
+            $data_dp = array(
+                'tgl_lunas'         => date('Y-m-d'),
+                'bukti_lunas'       => $uploadData['file_name'],
+                'status_rental'     => 'LUNAS'
+            );
+            $this->db->where('no_rental', $this->input->post('no_rental'));
+            $this->db->update('pesanan_rental', $data_dp);
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Mengirim Bukti Lunas!</div>');
+        };
+    }
+    function kirim_bukti_rental_lunas_ulang()
+    {
+        $config['upload_path']   = './assets/bukti_tranfer';
+        $config['allowed_types'] = 'jpeg|jpg|png|gif';
+        $config['encrypt_name']  = true;
+        $config['overwrite']     = true;
+        $config['max_size']      = 20024; // 10MB
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('bukti_dp')) {
+            $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Gagal Mengirim Bukti Tranfer!</div>');
+        } else {
+            $_FILES['file']['name'] = $_FILES['bukti_dp']['name'];
+            $_FILES['file']['type'] = $_FILES['bukti_dp']['type'];
+            $_FILES['file']['tmp_name'] = $_FILES['bukti_dp']['tmp_name'];
+            $_FILES['file']['size'] = $_FILES['bukti_dp']['size'];
+            $uploadData = $this->upload->data();
+            $data_dp = array(
+                'tgl_lunas'         => date('Y-m-d'),
+                'bukti_lunas'       => $uploadData['file_name'],
+                'status_rental'     => 'LUNAS'
+            );
+            $this->db->where('no_rental', $this->input->post('no_rental'));
+            $this->db->update('pesanan_rental', $data_dp);
+            $foto_lama = htmlspecialchars($this->input->post('bukti_lunas_lama'));
+            $berkas_lama = './assets/bukti_tranfer/' . $foto_lama . '';
+            unlink($berkas_lama);
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Mengirim Bukti Lunas!</div>');
+        };
+    }
     // Kelola Sopir
     function reset_password_admin()
     {
@@ -177,6 +289,20 @@ class Update_model extends CI_Model
         $this->db->where('id_rental', $this->input->post('id_rental'));
         $this->db->update('tbl_rental', $data_rental);
     }
+    function ubah_paket_full()
+    {
+        $data_paket = array(
+            'id_rental'      => $this->input->post('id_rental'),
+            'nm_paket'       => $this->input->post('nm_paket'),
+            'destination'    => $this->input->post('destination'),
+            'ket_paket'      => $this->input->post('ket_paket'),
+            'hg_modal'       => $this->input->post('hg_modal'),
+            'hg_standard'    => $this->input->post('hg_standard'),
+            'hg_minim'       => $this->input->post('hg_minim')
+        );
+        $this->db->where('id_paket', $this->input->post('id_paket'));
+        $this->db->update('tbl_paket', $data_paket);
+    }
     function ubah_paket()
     {
         $data_paket = array(
@@ -185,8 +311,7 @@ class Update_model extends CI_Model
             'ket_paket'      => $this->input->post('ket_paket'),
             'hg_modal'       => $this->input->post('hg_modal'),
             'hg_standard'    => $this->input->post('hg_standard'),
-            'hg_minim'       => $this->input->post('hg_minim'),
-            'jml_hari'       => $this->input->post('jml_hari')
+            'hg_minim'       => $this->input->post('hg_minim')
         );
         $this->db->where('id_paket', $this->input->post('id_paket'));
         $this->db->update('tbl_paket', $data_paket);
@@ -198,37 +323,5 @@ class Update_model extends CI_Model
         );
         $this->db->where('id_paket', $this->input->post('id_paket'));
         $this->db->update('tbl_paket', $data_paket);
-    }
-    function terima_rental_dp()
-    {
-        $data_dp = array(
-            'status_rental'     => 'DP_TERIMA'
-        );
-        $this->db->where('no_rental', $this->input->post('no_rental'));
-        $this->db->update('pesanan_rental', $data_dp);
-    }
-    function tolak_rental_dp()
-    {
-        $data_dp = array(
-            'status_rental'     => 'GAGAL_DP'
-        );
-        $this->db->where('no_rental', $this->input->post('no_rental'));
-        $this->db->update('pesanan_rental', $data_dp);
-    }
-    function terima_rental_lunas()
-    {
-        $data_dp = array(
-            'status_rental'     => 'KONFIRMASI'
-        );
-        $this->db->where('no_rental', $this->input->post('no_rental'));
-        $this->db->update('pesanan_rental', $data_dp);
-    }
-    function tolak_rental_lunas()
-    {
-        $data_dp = array(
-            'status_rental'     => 'GAGAL_LUNAS'
-        );
-        $this->db->where('no_rental', $this->input->post('no_rental'));
-        $this->db->update('pesanan_rental', $data_dp);
     }
 }

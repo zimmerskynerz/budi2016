@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2021 at 02:59 AM
+-- Generation Time: Feb 09, 2021 at 09:17 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.25
 
@@ -63,6 +63,13 @@ CREATE TABLE `pesanan_rental` (
   `status_rental` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pesanan_rental`
+--
+
+INSERT INTO `pesanan_rental` (`no_rental`, `id_rental`, `id_pelanggan`, `tgl_pesan`, `tgl_dp`, `tgl_lunas`, `tgl_berangkat`, `tgl_selesai`, `jml_hari`, `harga_total`, `bukti_dp`, `bukti_lunas`, `status_rental`) VALUES
+('20210209001', 2, 1, '2021-02-09', '2021-02-10', '2021-02-10', '2021-02-09', '2021-02-28', 19, 2337000, '0e03879be7ac0d7c40adcaf8608ee347.jpg', '04b152a2e33e87ef7263e6f7bb9a3bb2.jpg', 'KONFIRMASI');
+
 -- --------------------------------------------------------
 
 --
@@ -113,7 +120,8 @@ INSERT INTO `tbl_login` (`id_login`, `email`, `password`, `no_hp`, `level`, `sta
 (1, 'admin@admin', '$2y$10$MqUBpjBHKNir5BA0u79hXuj/2n3Xs2iM3/vrpEzPD.37/lKXwvA7a', '0895411547434', 'ADMIN', 'AKTIF', '2021-02-01'),
 (2, 'pemilik@pemilik', '$2y$10$MqUBpjBHKNir5BA0u79hXuj/2n3Xs2iM3/vrpEzPD.37/lKXwvA7a', '08112904711', 'PEMILIK', 'AKTIF', '2021-02-01'),
 (3, 'ulala.steven@gmail.com', '$2y$10$skOWfI4r6q9Kbcio83EIQOJuKBfcpfZE.EwPCEg025Xq0Fh4W1rhi', '0812920928928', 'SOPIR', 'AKTIF', '2021-02-08'),
-(4, 'monodaiki@gmail.com', '$2y$10$5t80bwBoJTXrtrduHf3hNu8WaMWNidJ3j4jU767Ybqm1Ed0.4GrF.', '0822903928292', 'SOPIR', 'AKTIF', '2021-02-08');
+(4, 'monodaiki@gmail.com', '$2y$10$5t80bwBoJTXrtrduHf3hNu8WaMWNidJ3j4jU767Ybqm1Ed0.4GrF.', '0822903928292', 'SOPIR', 'AKTIF', '2021-02-08'),
+(5, 'bgx@gmail.com', '$2y$10$Qy9gj.9D8wS8WsovPGo.Wei.QbRTw1ymdSV5WY/YB6.QDbbGS90By', '08123920902', 'PELANGGAN', 'AKTIF', '2021-02-09');
 
 -- --------------------------------------------------------
 
@@ -123,13 +131,13 @@ INSERT INTO `tbl_login` (`id_login`, `email`, `password`, `no_hp`, `level`, `sta
 
 CREATE TABLE `tbl_paket` (
   `id_paket` int(5) NOT NULL,
-  `id_rental` int(5) NOT NULL,
   `nm_paket` text NOT NULL,
   `destination` text NOT NULL,
   `ket_paket` text NOT NULL,
   `hg_modal` int(9) NOT NULL,
   `hg_standard` int(9) NOT NULL,
   `hg_minim` int(9) NOT NULL,
+  `jml_hari` int(2) NOT NULL,
   `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -137,8 +145,9 @@ CREATE TABLE `tbl_paket` (
 -- Dumping data for table `tbl_paket`
 --
 
-INSERT INTO `tbl_paket` (`id_paket`, `id_rental`, `nm_paket`, `destination`, `ket_paket`, `hg_modal`, `hg_standard`, `hg_minim`, `status`) VALUES
-(1, 2, 'Wisata Bali', 'Kepulauan Bali', 'Makan 3x Sehari<br>\r\nHotel Bintang 5<br>\r\nBiaya Transport dari hotel ke wisata<br>', 12000000, 15000000, 12500000, 'ADA');
+INSERT INTO `tbl_paket` (`id_paket`, `nm_paket`, `destination`, `ket_paket`, `hg_modal`, `hg_standard`, `hg_minim`, `jml_hari`, `status`) VALUES
+(1, 'Wisata Bali', 'Kepulauan Bali', 'Makan 3x Sehari<br>\r\nHotel Bintang 5<br>\r\nBiaya Transport dari hotel ke wisata<br>', 12000000, 15000000, 12500000, 6, 'ADA'),
+(2, 'Tour Jogjakarta', 'Kota Yogyakarta', 'Fasilitas : Makan 3x Sehari<br>\r\nHotel Bintang 5<br>\r\nBiaya Transport dari hotel ke wisata<br>\r\n\r\nDestination : <br>\r\n- Malioboro<br>\r\n- Semua Kota', 1500000, 2000000, 1550000, 10, 'ADA');
 
 -- --------------------------------------------------------
 
@@ -154,6 +163,13 @@ CREATE TABLE `tbl_pelanggan` (
   `foto_ktp` text DEFAULT NULL,
   `status` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_pelanggan`
+--
+
+INSERT INTO `tbl_pelanggan` (`id_pelanggan`, `id_login`, `nm_pelanggan`, `alamat`, `foto_ktp`, `status`) VALUES
+(1, 5, 'Muhammad Adi Pratama', 'Kudus jawa tengah', 'b16ff880e82e42d640360f9dbff52f9a.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -271,19 +287,19 @@ ALTER TABLE `tbl_sopir`
 -- AUTO_INCREMENT for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
-  MODIFY `id_login` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_login` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_paket`
 --
 ALTER TABLE `tbl_paket`
-  MODIFY `id_paket` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_paket` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_pelanggan`
 --
 ALTER TABLE `tbl_pelanggan`
-  MODIFY `id_pelanggan` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelanggan` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_rental`

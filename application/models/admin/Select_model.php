@@ -36,20 +36,6 @@ class Select_model extends CI_Model
         $query  = $this->db->get();
         return $query->result();
     }
-    function getDataPaket()
-    {
-        // SQL
-        // select * from tbl_rental where status != HAPUS
-        $query = $this->db->select('*,B.status as status_sopir');
-        $query = $this->db->from('tbl_rental as A');
-        $query = $this->db->join('tbl_sopir as B', 'A.id_sopir=B.id_sopir');
-        $query = $this->db->join('tbl_kendaraan as C', 'A.no_registrasi=C.no_registrasi');
-        $query = $this->db->join('tbl_paket as D', 'D.id_rental=A.id_rental');
-        $query = $this->db->where('A.status !=', 'HAPUS');
-        $query = $this->db->where('D.status !=', 'HAPUS');
-        $query  = $this->db->get();
-        return $query->result();
-    }
     function getDataPesananRental()
     {
         $query = $this->db->select('*');
@@ -58,6 +44,17 @@ class Select_model extends CI_Model
         $query = $this->db->join('tbl_pelanggan as C', 'A.id_pelanggan=C.id_pelanggan');
         $query = $this->db->where('A.status_rental !=', 'PROSES');
         $query = $this->db->where('A.status_rental !=', 'GAGAL');
+        $query = $this->db->order_by('A.no_rental', 'DESC');
+        $query  = $this->db->get();
+        return $query->result();
+    }
+    function getDataPesananRentalJadwal()
+    {
+        $query = $this->db->select('*');
+        $query = $this->db->from('pesanan_rental as A');
+        $query = $this->db->join('tbl_rental as B', 'A.id_rental=B.id_rental');
+        $query = $this->db->join('tbl_pelanggan as C', 'A.id_pelanggan=C.id_pelanggan');
+        $query = $this->db->where('A.status_rental', 'KONFIRMASI');
         $query = $this->db->order_by('A.no_rental', 'DESC');
         $query  = $this->db->get();
         return $query->result();
@@ -71,6 +68,18 @@ class Select_model extends CI_Model
         $query = $this->db->join('tbl_pelanggan as D', 'A.id_pelanggan=D.id_pelanggan');
         $query = $this->db->where('A.status_paket !=', 'PROSES');
         $query = $this->db->where('A.status_paket !=', 'GAGAL');
+        $query = $this->db->order_by('A.no_pesanan', 'DESC');
+        $query  = $this->db->get();
+        return $query->result();
+    }
+    function getDataPesananPaketJadwal()
+    {
+        $query = $this->db->select('*');
+        $query = $this->db->from('pesanan_paket as A');
+        $query = $this->db->join('tbl_paket as B', 'B.id_paket=A.id_paket');
+        $query = $this->db->join('tbl_rental as C', 'C.id_rental=B.id_rental');
+        $query = $this->db->join('tbl_pelanggan as D', 'A.id_pelanggan=D.id_pelanggan');
+        $query = $this->db->where('A.status_paket', 'KONFIRMASI');
         $query = $this->db->order_by('A.no_pesanan', 'DESC');
         $query  = $this->db->get();
         return $query->result();

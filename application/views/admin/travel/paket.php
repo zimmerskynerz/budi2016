@@ -20,6 +20,7 @@
                                         <th style="text-align: center;">No</th>
                                         <th style="text-align: center;">Wisata</th>
                                         <th style="text-align: center;">Destinasi</th>
+                                        <th style="text-align: center;">Lama</th>
                                         <th style="text-align: center;">Keterangan Paket</th>
                                         <th style="text-align: center;">Modal</th>
                                         <th style="text-align: center;">Standard</th>
@@ -35,6 +36,7 @@
                                             <td><?= $no ?></td>
                                             <td><?= $Data_paket->nm_paket ?></td>
                                             <td><?= $Data_paket->destination ?></td>
+                                            <td><?= $Data_paket->jml_hari ?> Hari</td>
                                             <td>
                                                 Fasilitas : <?= $Data_paket->ket_paket ?>
                                             </td>
@@ -42,7 +44,15 @@
                                             <td>Rp <?= $Data_paket->hg_standard ?>,-</td>
                                             <td>Rp <?= $Data_paket->hg_minim ?>,-</td>
                                             <td style="text-align: center;">
-                                                <a id="paket_detail" href="javascript:void(0);" class="bs-tooltip" data-toggle="modal" data-target="#detail_paket" data-placement="top" title="" data-original-title="Detail" data-id_paket="<?= $Data_paket->id_paket ?>" data-id_rental="<?= $Data_paket->id_rental ?>" data-nm_paket="<?= $Data_paket->nm_paket ?>" data-ket_paket="<?= $Data_paket->ket_paket ?>" data-hg_modal="<?= $Data_paket->hg_modal ?>" data-hg_standard="<?= $Data_paket->hg_standard ?>" data-hg_minim="<?= $Data_paket->hg_minim ?>" data-destination="<?= $Data_paket->destination ?>">
+                                                <a id="paket_detail" href="javascript:void(0);" class="bs-tooltip" data-toggle="modal" data-target="#detail_paket" data-placement="top" title="" data-original-title="Detail" 
+                                                data-id_paket="<?= $Data_paket->id_paket ?>" 
+                                                data-nm_paket="<?= $Data_paket->nm_paket ?>" 
+                                                data-ket_paket="<?= $Data_paket->ket_paket ?>" 
+                                                data-hg_modal="<?= $Data_paket->hg_modal ?>" 
+                                                data-hg_standard="<?= $Data_paket->hg_standard ?>" 
+                                                data-hg_minim="<?= $Data_paket->hg_minim ?>" 
+                                                data-destination="<?= $Data_paket->destination ?>"
+                                                data-jml_hari="<?= $Data_paket->jml_hari ?>">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             </td>
@@ -87,6 +97,10 @@
                     <input type="text" id="destination" name="destination" name="example-email" class="form-control" placeholder="Masukkan Tujuan WIsata">
                 </div>
                 <div class="form-group mb-3">
+                    <label for="example-email">Lama Liburan</label>
+                    <input type="number" id="jml_hari" name="jml_hari" name="example-email" class="form-control" placeholder="Masukkan Jumlah Hari Liburan">
+                </div>
+                <div class="form-group mb-3">
                     <label for="alamat">Keterangan Paket Wisata</label>
                     <textarea class="form-control" id="ket_paket" name="ket_paket" placeholder="Keterangan Paket Wisata" rows="5"></textarea>
                 </div>
@@ -101,14 +115,6 @@
                 <div class="form-group mb-3">
                     <label for="example-email">Harga Terendah</label>
                     <input type="number" id="hg_minim" name="hg_minim" name="example-email" class="form-control" placeholder="Masukkan Harga Terendah">
-                </div>
-                <div class="form-group mb-3">
-                    <label for="example-email">Pilih Mobil dan Sopir</label>
-                    <select name="id_rental" id="id_rental" class="form-control">
-                        <?php foreach ($data_rental as $Data_rental) : ?>
-                            <option value="<?= $Data_rental->id_rental ?>"><?= $Data_rental->no_registrasi ?> - <?= $Data_rental->nm_sopir ?></option>
-                        <?php endforeach; ?>
-                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -134,11 +140,15 @@
                 <div class="form-group mb-3">
                     <label for="example-email">Nama Paket Wisata</label>
                     <input type="text" id="nm_paket" name="nm_paket" name="example-email" class="form-control" placeholder="Masukkan Nama Paket Wisata">
-                    <input type="text" id="id_paket" name="id_paket" name="example-email" class="form-control" placeholder="Masukkan Nama Paket Wisata">
+                    <input type="text" id="id_paket" hidden name="id_paket" name="example-email" class="form-control" placeholder="Masukkan Nama Paket Wisata">
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Tujuan Wisata</label>
                     <input type="text" id="destination" name="destination" name="example-email" class="form-control" placeholder="Masukkan Tujuan WIsata">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="example-email">Lama Liburan</label>
+                    <input type="number" id="jml_hari" name="jml_hari" name="example-email" class="form-control" placeholder="Masukkan Jumlah Hari Liburan">
                 </div>
                 <div class="form-group mb-3">
                     <label for="alamat">Keterangan Paket Wisata</label>
@@ -155,14 +165,6 @@
                 <div class="form-group mb-3">
                     <label for="example-email">Harga Terendah</label>
                     <input type="number" id="hg_minim" name="hg_minim" name="example-email" class="form-control" placeholder="Masukkan Harga Terendah">
-                </div>
-                <div class="form-group mb-3">
-                    <label for="example-email">Pilih Mobil dan Sopir</label>
-                    <select name="id_rental" id="id_rental" class="form-control">
-                        <?php foreach ($data_rental as $Data_rental) : ?>
-                            <option value="<?= $Data_rental->id_rental ?>"><?= $Data_rental->no_registrasi ?> - <?= $Data_rental->nm_sopir ?></option>
-                        <?php endforeach; ?>
-                    </select>
                 </div>
             </div>
             <div class="modal-footer">
@@ -183,7 +185,7 @@
         var hg_modal = $(this).data('hg_modal');
         var hg_standard = $(this).data('hg_standard');
         var hg_minim = $(this).data('hg_minim');
-        var id_rental = $(this).data('id_rental');
+        var jml_hari = $(this).data('jml_hari');
         $(".modal-body#detail_body #id_paket").val(id_paket);
         $(".modal-body#detail_body #nm_paket").val(nm_paket);
         $(".modal-body#detail_body #ket_paket").val(ket_paket);
@@ -191,7 +193,7 @@
         $(".modal-body#detail_body #hg_modal").val(hg_modal);
         $(".modal-body#detail_body #hg_standard").val(hg_standard);
         $(".modal-body#detail_body #hg_minim").val(hg_minim);
-        $(".modal-body#detail_body #id_rental").val(id_rental);
+        $(".modal-body#detail_body #jml_hari").val(jml_hari);
     })
 </script>
 <script>

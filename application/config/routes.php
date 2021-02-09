@@ -46,7 +46,14 @@ $route['admin/jadwal/selesai_jadwal']   = 'admin/ControllerAdminJadwal/selesai_j
 // Halaman Pelanggan Beranda
 $route['pelanggan']                     = 'pelanggan/ControllerPelangganBeranda/index';
 $route['pelanggan/beranda']             = 'pelanggan/ControllerPelangganBeranda/index';
-// Menu Travel Rental
+// Menu Travel
 $route['pelanggan/travel/rental']       = 'pelanggan/ControllerPelangganTravel/rental';
 $route['pelanggan/travel/paket']        = 'pelanggan/ControllerPelangganTravel/paket';
 $route['pelanggan/travel/crudtravel']   = 'pelanggan/ControllerPelangganTravel/crudtravel';
+// Menu Pesanan
+$route['pelanggan/pesanan/rental']      = 'pelanggan/ControllerPelangganPesanan/rental';
+$route['pelanggan/pesanan/paket']       = 'pelanggan/ControllerPelangganPesanan/paket';
+$route['pelanggan/pesanan/crudpesanan'] = 'pelanggan/ControllerPelangganPesanan/crudpesanan';
+// Menu Jadwal
+$route['pelanggan/jadwal/list_jadwal']        = 'pelanggan/ControllerPelangganJadwal/rental';
+$route['pelanggan/jadwal/list_jadwal_paket']  = 'pelanggan/ControllerPelangganJadwal/paket';
