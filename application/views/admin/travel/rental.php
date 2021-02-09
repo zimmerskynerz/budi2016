@@ -48,7 +48,7 @@
                                             # code...
                                             else : ?>
                                                 <td style="text-align: center;">
-                                                    <a id="rental_detail" href="javascript:void(0);" class="bs-tooltip" data-toggle="modal" data-target="#detail_rental" data-placement="top" title="" data-original-title="Detail" data-id_rental="<?= $Data_sopir->id_rental ?>" data-id_sopir="<?= $Data_sopir->id_sopir ?>" data-no_registrasi="<?= $Data_sopir->no_registrasi ?>" data-harga="<?= $Data_sopir->harga ?>">
+                                                    <a id="rental_detail" href="javascript:void(0);" class="bs-tooltip" data-toggle="modal" data-target="#detail_rental" data-placement="top" title="" data-original-title="Detail" data-id_rental="<?= $Data_rental->id_rental ?>" data-id_sopir="<?= $Data_rental->id_sopir ?>" data-no_registrasi="<?= $Data_rental->no_registrasi ?>" data-harga="<?= $Data_rental->harga ?>">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </td>
@@ -101,7 +101,7 @@
                     <select name="no_registrasi" id="no_registrasi" class="form-control">
                         <option value="">Pilih Mobil</option>
                         <?php foreach ($data_kendaraan as $Data_kendaraan) : ?>
-                            <option value="<?= $Data_kendaraan->no_registrasi ?>"><?= $Data_kendaraan->merk ?></option>
+                            <option value="<?= $Data_kendaraan->no_registrasi ?>"><?= $Data_kendaraan->no_registrasi ?> - <?= $Data_kendaraan->merk ?> - <?= $Data_kendaraan->type ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -145,7 +145,7 @@
                     <select name="no_registrasi" id="no_registrasi" class="form-control">
                         <option value="">Pilih Mobil</option>
                         <?php foreach ($data_kendaraan as $Data_kendaraan) : ?>
-                            <option value="<?= $Data_kendaraan->no_registrasi ?>"><?= $Data_kendaraan->merk ?></option>
+                            <option value="<?= $Data_kendaraan->no_registrasi ?>"><?= $Data_kendaraan->no_registrasi ?> - <?= $Data_kendaraan->merk ?> - <?= $Data_kendaraan->type ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

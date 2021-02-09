@@ -45,19 +45,59 @@ class ControllerAdminTravel extends CI_Controller
     }
     public function crudrental()
     {
-        if (isset($_POST['simpan_sopir'])) :
+        if (isset($_POST['simpan_rental'])) :
             # code...
-            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Guru!</div>');
-            redirect('admin/rental/sopir');
+            $id_sopir = $this->input->post('id_sopir');
+            $no_registrasi = $this->input->post('no_registrasi');
+            $cek_sopir = $this->db->get_where('tbl_rental', ['id_sopir' => $id_sopir, 'status' => 'ADA'])->row_array();
+            if ($cek_sopir > 0) :
+                $cek_kendaraan = $this->db->get_where('tbl_rental', ['no_registrasi' => $no_registrasi, 'status' => 'ADA'])->row_array();
+                if ($cek_kendaraan > 0) :
+                    $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Sopir dan Kendaraan Sudah Terdaftar!</div>');
+                else :
+                    $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Sopir Sudah Terdaftar!</div>');
+                endif;
+            else :
+                $cek_kendaraan = $this->db->get_where('tbl_rental', ['no_registrasi' => $no_registrasi, 'status' => 'ADA'])->row_array();
+                if ($cek_kendaraan > 0) :
+                    $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Kendaraan Sudah Terdaftar!</div>');
+                else :
+                    $this->insert_model->simpan_rental();
+                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Sopir dan Kendaraan Berhasil Terdaftar!</div>');
+                endif;
+            endif;
+            redirect('admin/travel/rental');
         endif;
-        if (isset($_POST['reset_password'])) :
-        # code...
+        if (isset($_POST['ubah_rental'])) :
+            # code...
+            $id_sopir = $this->input->post('id_sopir');
+            $no_registrasi = $this->input->post('no_registrasi');
+            $cek_sopir = $this->db->get_where('tbl_rental', ['id_sopir' => $id_sopir, 'status' => 'ADA'])->row_array();
+            if ($cek_sopir > 0) :
+                $cek_kendaraan = $this->db->get_where('tbl_rental', ['no_registrasi' => $no_registrasi, 'status' => 'ADA'])->row_array();
+                if ($cek_kendaraan > 0) :
+                    $this->update_model->ubah_rental();
+                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Harga Berhasil Diubah!</div>');
+                else :
+                    $this->update_model->ubah_rental_kendaraan();
+                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Kendaraan Berhasil Diubah!</div>');
+                endif;
+            else :
+                $cek_kendaraan = $this->db->get_where('tbl_rental', ['no_registrasi' => $no_registrasi, 'status' => 'ADA'])->row_array();
+                if ($cek_kendaraan > 0) :
+                    $this->update_model->ubah_rental_sopir();
+                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Sopir Berhasil Diubah!</div>');
+                else :
+                    $this->update_model->ubah_rental_full();
+                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Sopir dan Kendaraan Berhasil Diubah!</div>');
+                endif;
+            endif;
+            redirect('admin/travel/rental');
         endif;
-        if (isset($_POST['hapus_sopir'])) :
-        # code...
-        endif;
-        if (isset($_POST['ubah_sopir'])) :
-        # code...
+        if (isset($_POST['hapus_rental'])) :
+            $this->update_model->hapus_rental();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Rental Berhasil Dihapus!</div>');
+            redirect('admin/travel/rental');
         endif;
     }
     public function paket()
@@ -86,16 +126,38 @@ class ControllerAdminTravel extends CI_Controller
     }
     public function crudpaket()
     {
-        if (isset($_POST['simpan_kendaraan'])) :
+        if (isset($_POST['simpan_paket'])) :
             # code...
-            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Guru!</div>');
-            redirect('admin/rental/kendaraan');
+            $id_rental    = $this->input->post('id_rental');
+            $cek_rental   = $this->db->get_where('tbl_paket', ['id_rental' => $id_rental, 'status' => 'ADA'])->row_array();
+            if ($cek_rental > 0) :
+                # code...
+                $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Paket Wisata Sudah Ada!</div>');
+            else :
+                $this->insert_model->simpan_paket();
+                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Paket WIsata!</div>');
+            endif;
+            redirect('admin/travel/paket');
         endif;
-        if (isset($_POST['ubah_kendaraan'])) :
-        # code...
+        if (isset($_POST['ubah_paket'])) :
+            # code...
+            $id_rental    = $this->input->post('id_rental');
+            $cek_rental   = $this->db->get_where('tbl_paket', ['id_rental' => $id_rental, 'status' => 'ADA'])->row_array();
+            if ($cek_rental > 0) :
+                # code...
+                $this->update_model->ubah_paket();
+                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Merubah Paket WIsata!</div>');
+            else :
+                $this->update_model->ubah_paket_full();
+                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Merubah Paket WIsata!</div>');
+            endif;
+            redirect('admin/travel/paket');
         endif;
-        if (isset($_POST['hapus_kendaraan'])) :
-        # code...
+        if (isset($_POST['hapus_paket'])) :
+            # code...
+            $this->update_model->hapus_paket();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menghapus Paket WIsata!</div>');
+            redirect('admin/travel/paket');
         endif;
     }
 }

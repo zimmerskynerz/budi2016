@@ -20,6 +20,21 @@ class ControllerHalamanUtama extends CI_Controller
             $this->load->view('halaman_utama');
         endif;
     }
+    public function daftar()
+    {
+        $cek_data = $this->db->get_where('tbl_login', ['email' => $this->session->userdata('email')])->row_array();
+        if ($cek_data['level'] == 'ADMIN') :
+            redirect('admin');
+        elseif ($cek_data['level'] == 'PEMILIK') :
+            redirect('ketua');
+        elseif ($cek_data['level'] == 'SOPIR') :
+            redirect('pengurus');
+        elseif ($cek_data['level'] == 'PELANGGAN') :
+            redirect('wali');
+        else :
+            $this->load->view('halaman_daftar');
+        endif;
+    }
     public function cek_login()
     {
         $email      = htmlspecialchars($this->input->post('email'));

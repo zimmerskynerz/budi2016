@@ -8,7 +8,9 @@ $route['translate_uri_dashes'] = FALSE;
 // Halaman Utama Booking
 $route['halman_utama']                  = 'ControllerHalamanUtama/index';
 $route['login']                         = 'ControllerHalamanUtama/index';
+$route['daftar']                        = 'ControllerHalamanUtama/daftar';
 $route['cek_login']                     = 'ControllerHalamanUtama/cek_login';
+$route['logout']                        = 'ControllerHalamanUtama/logout';
 
 // Halaman Administrasi Beranda
 $route['admin']                         = 'admin/ControllerAdminRental/data_kendaraan';

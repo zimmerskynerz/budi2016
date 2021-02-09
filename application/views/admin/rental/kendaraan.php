@@ -17,13 +17,13 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Foto</th>
-                                        <th>No Registrasi</th>
-                                        <th>Keterangan</th>
-                                        <th>Stnk</th>
-                                        <th>Penumpang</th>
-                                        <th>Aksi</th>
+                                        <th style="text-align: center;">No</th>
+                                        <th style="text-align: center;">Foto</th>
+                                        <th style="text-align: center;">No Registrasi</th>
+                                        <th style="text-align: center;">Keterangan</th>
+                                        <th style="text-align: center;">Stnk</th>
+                                        <th style="text-align: center;">Penumpang</th>
+                                        <th style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,7 +32,7 @@
                                     foreach ($data_kendaraan as $Data_kendaraan) : ?>
                                         <tr>
                                             <td><?= $no ?></td>
-                                            <td>
+                                            <td style="text-align: center;" width="350px">
                                                 <img src="<?= base_url('assets/foto_kendaraan/' . $Data_kendaraan->foto_kendaraan . '') ?>" width="50%">
                                             </td>
                                             <td><?= $Data_kendaraan->no_registrasi  ?></td>
@@ -129,14 +129,14 @@
                     </div>
                     <div class="col">
                         <div class="form-group mb-3">
-                            <label for="type">Tahun Pembuatan</label>
+                            <label for="type">Tahun</label>
                             <input type="number" id="th_pembuatan" name="th_pembuatan" name="example-email" class="form-control" placeholder="Tahun Pembuatan">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group mb-2">
                             <label for="jenis">Berlaku STNK</label>
-                            <input type="text" id="berlaku_stnk" name="berlaku_stnk" name="example-email" class="form-control" placeholder="Berlaku STNK">
+                            <input type="date" id="berlaku_stnk" name="berlaku_stnk" name="example-email" class="form-control" placeholder="Berlaku STNK">
                         </div>
                     </div>
                 </div>
@@ -158,11 +158,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id="detail_sopir" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true">
+<div class="modal fade" id="detail_kendaraan" tabindex="-1" role="dialog" aria-labelledby="scrollableModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="scrollableModalTitle">Detail Sopir</h3>
+                <h3 class="modal-title" id="scrollableModalTitle">Detail Kendaraan</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -227,7 +227,8 @@
                 <div class="form-group">
                     <div class="form-group">
                         <div class="input-group">
-                            <img src="" width="100%" id="sim" name="foto_kendaraan_view">
+                            <img src="" width="100%" id="foto_kendaraan_view" name="foto_kendaraan_view">
+                            <input type="text" id="foto_lama" hidden name="foto_lama" name="example-email" class="form-control" placeholder="Jumlah Penumpang">
                         </div>
                     </div>
                 </div>
@@ -242,9 +243,9 @@
     </div><!-- /.modal-dialog -->
 </div>
 <script type="text/javascript">
-    $(document).on("click", "#sopir_detail", function() {
+    $(document).on("click", "#kendaraan_detail", function() {
         var no_registrasi = $(this).data('no_registrasi');
-        var type_kendaraan = $(this).data('type_kendaraan');
+        var type_kendaraan = $(this).data('type');
         var merk = $(this).data('merk');
         var jenis = $(this).data('jenis');
         var th_pembuatan = $(this).data('th_pembuatan');
@@ -260,7 +261,7 @@
         $(".modal-body#detail_body #warna").val(warna);
         $(".modal-body#detail_body #berlaku_stnk").val(berlaku_stnk);
         $(".modal-body#detail_body #jml_penumpang").val(jml_penumpang);
-        $(".modal-body#detail_body #foto").attr("src", "<?= base_url('assets/berkas/') ?>" + foto);
+        $(".modal-body#detail_body #foto_lama").val(foto_kendaraan);
         $(".modal-body#detail_body #foto_kendaraan_view").attr("src", "<?= base_url('assets/foto_kendaraan/') ?>" + foto_kendaraan);
     })
 </script>

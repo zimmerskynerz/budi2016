@@ -77,19 +77,12 @@ class ControllerAdminRental extends CI_Controller
             $no_hp     = html_escape($this->input->post('no_hp'));
             $cek_login = $this->db->get_where('tbl_login', ['email' => $email])->row_array();
             if ($cek_login > 0) :
-                if ($cek_login['no_hp'] == $no_hp) :
+                $cek_nomer = $this->db->get_where('tbl_login', ['no_hp' => $no_hp])->row_array();
+                if ($cek_nomer > 0) :
                     $this->update_model->ubah_sopir();
                     $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Data Sopir Berhasil Di Ubah!</div>');
                 else :
                     $this->update_model->ubah_sopir_hp();
-                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Data Sopir Berhasil Di Ubah!</div>');
-                endif;
-            else :
-                if ($cek_login['no_hp'] == $no_hp) :
-                    $this->update_model->ubah_sopir_email();
-                    $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Data Sopir Berhasil Di Ubah!</div>');
-                else :
-                    $this->update_model->ubah_sopir_full();
                     $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Data Sopir Berhasil Di Ubah!</div>');
                 endif;
             endif;
@@ -122,14 +115,25 @@ class ControllerAdminRental extends CI_Controller
     {
         if (isset($_POST['simpan_kendaraan'])) :
             # code...
-            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Guru!</div>');
+            $area = $this->input->post('area');
+            $nomor = $this->input->post('nomor');
+            $registrasi = $this->input->post('registrasi');
+            $no_registrasi = $area . ' ' . $nomor . ' ' . $registrasi;
+            $cek_kendaraan = $this->db->get_where('tbl_kendaraan', ['no_registrasi' => $no_registrasi, 'status' => 'ADA'])->row_array();
+            if ($cek_kendaraan > 0) :
+                $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Nomor Registrasi Sudah Ada!</div>');
+            else :
+                $this->insert_model->simpan_kendaraan($no_registrasi);
+            endif;
             redirect('admin/rental/kendaraan');
         endif;
         if (isset($_POST['ubah_kendaraan'])) :
-        # code...
+            $this->update_model->ubah_kendaraan();
+            redirect('admin/rental/kendaraan');
         endif;
         if (isset($_POST['hapus_kendaraan'])) :
-        # code...
+            $this->update_model->hapus_kendaraan();
+            redirect('admin/rental/kendaraan');
         endif;
     }
 }

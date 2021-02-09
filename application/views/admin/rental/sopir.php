@@ -17,13 +17,13 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>No HP</th>
-                                        <th>Alamat</th>
-                                        <th>Gabung</th>
-                                        <th>Aksi</th>
+                                        <th style="text-align: center;">No</th>
+                                        <th style="text-align: center;">Nama</th>
+                                        <th style="text-align: center;">Email</th>
+                                        <th style="text-align: center;">No HP</th>
+                                        <th style="text-align: center;">Alamat</th>
+                                        <th style="text-align: center;">Gabung</th>
+                                        <th style="text-align: center;">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,7 +124,7 @@
                 <div class="form-group mb-3">
                     <label for="example-email">Email</label>
                     <input type="email" id="email" readonly name="email" name="example-email" class="form-control" placeholder="Masukkan Email Pengurus">
-                    <input type="text" id="id_sopir" hidden name="id_sopir" name="example-email" class="form-control" placeholder="Masukkan Email Pengurus">
+                    <input type="text" id="id_login" hidden name="id_login" name="example-email" class="form-control" placeholder="Masukkan Email Pengurus">
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Nama Sopir</label>
@@ -167,14 +167,14 @@
 </div>
 <script type="text/javascript">
     $(document).on("click", "#sopir_detail", function() {
-        var id_sopir = $(this).data('id_sopir');
+        var id_login = $(this).data('id_login');
         var email = $(this).data('email');
         var nm_sopir = $(this).data('nm_sopir');
         var no_hp = $(this).data('no_hp');
         var alamat = $(this).data('alamat');
         var foto = $(this).data('foto');
         var sim = $(this).data('sim');
-        $(".modal-body#detail_body #id_sopir").val(id_sopir);
+        $(".modal-body#detail_body #id_login").val(id_login);
         $(".modal-body#detail_body #email").val(email);
         $(".modal-body#detail_body #no_hp").val(no_hp);
         $(".modal-body#detail_body #nm_sopir").val(nm_sopir);
