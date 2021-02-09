@@ -15,7 +15,7 @@ class ControllerHalamanUtama extends CI_Controller
         elseif ($cek_data['level'] == 'SOPIR') :
             redirect('pengurus');
         elseif ($cek_data['level'] == 'PELANGGAN') :
-            redirect('wali');
+            redirect('pelanggan');
         else :
             $this->load->view('halaman_utama');
         endif;
@@ -30,7 +30,7 @@ class ControllerHalamanUtama extends CI_Controller
         elseif ($cek_data['level'] == 'SOPIR') :
             redirect('pengurus');
         elseif ($cek_data['level'] == 'PELANGGAN') :
-            redirect('wali');
+            redirect('pelanggan');
         else :
             $this->load->view('halaman_daftar');
         endif;
@@ -74,6 +74,61 @@ class ControllerHalamanUtama extends CI_Controller
         else :
             // Tidak Ada Email
             $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Email tidak terdaftar!</div>');
+            redirect('login');
+        endif;
+    }
+    public function cruddaftar()
+    {
+        $email       = $this->input->post('email');
+        $no_hp       = $this->input->post('no_hp');
+        $query = $this->db->select('*')->where('email', $email)->from('tbl_login')->or_where('no_hp', $no_hp)->get()->row_array();
+        if ($query > 0) :
+            $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Email dan Nomer Hp Sudah Ada!</div>');
+            redirect('daftar');
+        else :
+            $data_login = array(
+                'id_login'        => '',
+                'email'           => $this->input->post('email'),
+                'password'        => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'no_hp'           => $this->input->post('no_hp'),
+                'level'           => 'PELANGGAN',
+                'status'          => 'BLOKIR',
+                'tgl_gabung'      => date('Y-m-d')
+            );
+            $this->db->insert('tbl_login', $data_login);
+            $cek_login = $this->db->get_where('tbl_login', ['email' => $email])->row_array();
+            $id_login  = $cek_login['id_login'];
+            $config['upload_path']   = './assets/ktp';
+            $config['allowed_types'] = 'jpeg|jpg|png|gif';
+            $config['encrypt_name']  = true;
+            $config['overwrite']     = true;
+            $config['max_size']      = 20024; // 10MB
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('ktp')) {
+                $data_pelanggan = array(
+                    'id_pelanggan' => '',
+                    'id_login'     => $id_login,
+                    'nm_pelanggan' => $this->input->post('nm_pelanggan'),
+                    'alamat'       => $this->input->post('alamat'),
+                    'foto_ktp'     => 'default.png'
+                );
+                $this->db->insert('tbl_pelanggan', $data_pelanggan);
+            } else {
+                $_FILES['file']['name'] = $_FILES['ktp']['name'];
+                $_FILES['file']['type'] = $_FILES['ktp']['type'];
+                $_FILES['file']['tmp_name'] = $_FILES['ktp']['tmp_name'];
+                $_FILES['file']['size'] = $_FILES['ktp']['size'];
+                $uploadData = $this->upload->data();
+                $data_pelanggan = array(
+                    'id_pelanggan' => '',
+                    'id_login'     => $id_login,
+                    'nm_pelanggan' => $this->input->post('nm_pelanggan'),
+                    'alamat'       => $this->input->post('alamat'),
+                    'foto_ktp'     => $uploadData['file_name']
+                );
+                $this->db->insert('tbl_pelanggan', $data_pelanggan);
+            }
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Silahkan Login!</div>');
             redirect('login');
         endif;
     }
