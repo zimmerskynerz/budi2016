@@ -42,6 +42,31 @@ class ControllerPelangganJadwal extends CI_Controller
             redirect('login');
         endif;
     }
+    public function paket()
+    {
+        $cek_data = $this->db->get_where('tbl_login', ['email' => $this->session->userdata('email')])->row_array();
+        $identitas = $this->db->get_where('tbl_pelanggan', ['id_login' => $this->session->userdata('id_login')])->row_array();
+        if ($cek_data['level'] == 'PELANGGAN') :
+            $id_pelanggan               = $identitas['id_pelanggan'];
+            $data_pesanan_paket         = $this->select_model->getDataPesananPaket($id_pelanggan);
+            $data = array(
+                'folder'       => 'jadwal',
+                'halaman'      => 'paket',
+                'identitas'    => $identitas,
+                // Halaman data sopir
+                'data_pesanan_paket'   => $data_pesanan_paket
+            );
+            $this->load->view('pelanggan/include/index', $data);
+        elseif ($cek_data['level'] == 'PEMILIK') :
+            redirect('pemilik');
+        elseif ($cek_data['level'] == 'SOPIR') :
+            redirect('sopir');
+        elseif ($cek_data['level'] == 'ADMIN') :
+            redirect('admin');
+        else :
+            redirect('login');
+        endif;
+    }
 }
         
     /* End of file  ControllerPelangganJadwal.php */

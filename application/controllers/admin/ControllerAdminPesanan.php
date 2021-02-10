@@ -93,16 +93,42 @@ class ControllerAdminPesanan extends CI_Controller
     }
     public function crudpaket()
     {
-        if (isset($_POST['simpan_kendaraan'])) :
+        // Kelola Penawaran
+        if (isset($_POST['terima_penawaran'])) :
             # code...
-            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Guru!</div>');
-            redirect('admin/rental/kendaraan');
+            $this->update_model->terima_penawaran();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menolak Penawaran!</div>');
+            redirect('admin/pesanan/paket');
         endif;
-        if (isset($_POST['ubah_kendaraan'])) :
-        # code...
+        if (isset($_POST['tolak_penawaran'])) :
+            # code...
+            $this->update_model->tolak_penawaran();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menolak Penawaran!</div>');
+            redirect('admin/pesanan/paket');
         endif;
-        if (isset($_POST['hapus_kendaraan'])) :
-        # code...
+        if (isset($_POST['terima_paket_dp'])) :
+            # code...
+            $this->update_model->terima_paket_dp();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menerima Bukti Tranfer!</div>');
+            redirect('admin/pesanan/paket');
+        endif;
+        if (isset($_POST['tolak_paket_dp'])) :
+            # code...
+            $this->update_model->tolak_paket_dp();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menolak Bukti Tranfer!</div>');
+            redirect('admin/pesanan/paket');
+        endif;
+        if (isset($_POST['terima_paket_lunas'])) :
+            # code...
+            $this->update_model->terima_paket_lunas();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menerima Bukti Tranfer!</div>');
+            redirect('admin/pesanan/paket');
+        endif;
+        if (isset($_POST['tolak_paket_lunas'])) :
+            # code...
+            $this->update_model->tolak_paket_lunas();
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menolak Bukti Tranfer!</div>');
+            redirect('admin/pesanan/paket');
         endif;
     }
 }

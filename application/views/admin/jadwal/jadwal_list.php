@@ -55,12 +55,15 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;">No</th>
-                                        <th style="text-align: center;">Kode Pesanan</th>
-                                        <th style="text-align: center;">No Registrasi</th>
-                                        <th style="text-align: center;">Berangkat</th>
-                                        <th style="text-align: center;">Pulang</th>
-                                        <th style="text-align: center;">Harga</th>
+                                        <th>No</th>
+                                        <th>Pesanan</th>
+                                        <th>Nama</th>
+                                        <th>Paket</th>
+                                        <th>Berangkat</th>
+                                        <th>Pulang</th>
+                                        <th>Standard</th>
+                                        <th>Minimal</th>
+                                        <th>Penawaran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,10 +73,13 @@
                                         <tr>
                                             <td><?= $no ?></td>
                                             <td><?= $Pesanan_paket->no_pesanan ?></td>
-                                            <td><?= $Pesanan_paket->no_registrasi ?></td>
+                                            <td><?= $Pesanan_paket->nm_pelanggan ?></td>
+                                            <td><?= $Pesanan_paket->nm_paket ?></td>
                                             <td><?= date('d F Y', strtotime($Pesanan_paket->tgl_berangkat)) ?></td>
                                             <td><?= date('d F Y', strtotime($Pesanan_paket->tgl_selesai)) ?></td>
-                                            <td><?= $Pesanan_paket->harga_total ?></td>
+                                            <td>Rp <?= $Pesanan_paket->hg_standard ?>,-</td>
+                                            <td>Rp <?= $Pesanan_paket->hg_minim ?>,-</td>
+                                            <td>Rp <?= $Pesanan_paket->harga_paket ?>,-</td>
                                         </tr>
                                     <?php
                                         $no++;

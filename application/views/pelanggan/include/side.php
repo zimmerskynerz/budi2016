@@ -84,7 +84,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../layout/boxed.html" class="nav-link">
+                            <a href="<?= base_url('pelanggan/jadwal/list_jadwal_paket') ?>" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Paket</p>
                             </a>

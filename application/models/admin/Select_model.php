@@ -64,10 +64,7 @@ class Select_model extends CI_Model
         $query = $this->db->select('*');
         $query = $this->db->from('pesanan_paket as A');
         $query = $this->db->join('tbl_paket as B', 'B.id_paket=A.id_paket');
-        $query = $this->db->join('tbl_rental as C', 'C.id_rental=B.id_rental');
-        $query = $this->db->join('tbl_pelanggan as D', 'A.id_pelanggan=D.id_pelanggan');
-        $query = $this->db->where('A.status_paket !=', 'PROSES');
-        $query = $this->db->where('A.status_paket !=', 'GAGAL');
+        $query = $this->db->join('tbl_pelanggan as C', 'C.id_pelanggan=A.id_pelanggan');
         $query = $this->db->order_by('A.no_pesanan', 'DESC');
         $query  = $this->db->get();
         return $query->result();

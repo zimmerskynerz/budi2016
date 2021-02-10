@@ -14,8 +14,8 @@ $route['logout']                        = 'ControllerHalamanUtama/logout';
 $route['pelanggan/daftar']              = 'ControllerHalamanUtama/cruddaftar';
 
 // Halaman Administrasi Beranda
-$route['admin']                         = 'admin/ControllerAdminRental/data_kendaraan';
-$route['admin/beranda']                 = 'admin/ControllerAdminRental/data_kendaraan';
+$route['admin']                         = 'admin/ControllerAdminJadwal/list_jadwal';
+$route['admin/beranda']                 = 'admin/ControllerAdminJadwal/list_jadwal';
 // Halaman Administrasi Rental
 // Kelola Menu Sopir
 $route['admin/rental/sopir']            = 'admin/ControllerAdminRental/sopir';
@@ -36,7 +36,7 @@ $route['admin/pesanan/rental']          = 'admin/ControllerAdminPesanan/rental';
 $route['admin/pesanan/crudrental']      = 'admin/ControllerAdminPesanan/crudrental';
 // Halaman pesanan paket
 $route['admin/pesanan/paket']           = 'admin/ControllerAdminPesanan/paket';
-$route['admin/pesanan/crudpaket']       = 'admin/ControllerAdminPesanan/crudpaket`';
+$route['admin/pesanan/crudpaket']       = 'admin/ControllerAdminPesanan/crudpaket';
 // Halaman Jadwal Keberangkatan
 $route['admin/jadwal/list_jadwal']      = 'admin/ControllerAdminJadwal/list_jadwal';
 $route['admin/jadwal/proses_jadwal']    = 'admin/ControllerAdminJadwal/proses_jadwal';

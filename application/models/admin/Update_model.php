@@ -231,4 +231,52 @@ class Update_model extends CI_Model
         $this->db->where('no_rental', $this->input->post('no_rental'));
         $this->db->update('pesanan_rental', $data_dp);
     }
+    function terima_penawaran()
+    {
+        $data_paket = array(
+            'status_paket'  => 'KONFIRMASI_DP'
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data_paket);
+    }
+    function tolak_penawaran()
+    {
+        $data_paket = array(
+            'status_paket'  => 'KONFIRMASI_TOLAK'
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data_paket);
+    }
+    function terima_paket_dp()
+    {
+        $data = array(
+            'status_paket' => 'TERIMA_DP'
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data);
+    }
+    function tolak_paket_dp()
+    {
+        $data = array(
+            'status_paket' => 'TOLAK_DP'
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data);
+    }
+    function terima_paket_lunas()
+    {
+        $data = array(
+            'status_paket' => 'KONFIRMASI'
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data);
+    }
+    function tolak_paket_lunas()
+    {
+        $data = array(
+            'status_paket' => 'GAGAL_LUNAS'
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data);
+    }
 }

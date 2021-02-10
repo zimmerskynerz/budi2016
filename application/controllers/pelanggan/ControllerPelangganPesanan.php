@@ -87,10 +87,45 @@ class ControllerPelangganPesanan extends CI_Controller
             redirect('pelanggan/pesanan/rental');
         endif;
         // Kelola Paket
+        if (isset($_POST['batal_proses'])) :
+            # code...
+            $this->update_model->batal_proses();
+            redirect('pelanggan/pesanan/paket');
+        endif;
+        if (isset($_POST['kirim_ulang_proses'])) :
+            # code...
+            $harga_paket = $this->input->post('harga_paket');
+            $penawaran_baru = $this->input->post('penawaran_baru');
+            $hg_standard = $this->input->post('hg_standard');
+            if ($harga_paket > $penawaran_baru) :
+                # code...
+                $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Penawaran Baru Lebih Kecil Dari Penawaran Lama!</div>');
+            elseif ($hg_standard < $penawaran_baru) :
+                $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Penawaran Baru Lebih Besar Dari Harga Normal!</div>');
+            else :
+                $this->update_model->kirim_ulang_proses();
+            endif;
+            redirect('pelanggan/pesanan/paket');
+        endif;
         if (isset($_POST['kirim_bukti_paket_dp'])) :
             # code...
             $this->update_model->kirim_bukti_paket_dp();
-            redirect('pelanggan/travel/paket');
+            redirect('pelanggan/pesanan/paket');
+        endif;
+        if (isset($_POST['kirim_bukti_paket_dp_ulang'])) :
+            # code...
+            $this->update_model->kirim_bukti_paket_dp_ulang();
+            redirect('pelanggan/pesanan/paket');
+        endif;
+        if (isset($_POST['kirim_bukti_paket_lunas'])) :
+            # code...
+            $this->update_model->kirim_bukti_paket_lunas();
+            redirect('pelanggan/pesanan/paket');
+        endif;
+        if (isset($_POST['kirim_bukti_paket_lunas_ulang'])) :
+            # code...
+            $this->update_model->kirim_bukti_paket_lunas_ulang();
+            redirect('pelanggan/pesanan/paket');
         endif;
     }
 }
