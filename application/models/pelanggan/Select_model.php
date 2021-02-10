@@ -62,6 +62,7 @@ class Select_model extends CI_Model
         $query = $this->db->join('tbl_sopir as B', 'A.id_sopir=B.id_sopir');
         $query = $this->db->join('tbl_kendaraan as C', 'A.no_registrasi=C.no_registrasi');
         $query = $this->db->where('A.status !=', 'HAPUS');
+        $query = $this->db->where('B.status', 'KOSONG');
         $query  = $this->db->get();
         return $query->result();
     }

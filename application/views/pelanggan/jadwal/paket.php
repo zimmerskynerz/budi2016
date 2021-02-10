@@ -42,8 +42,14 @@
                                                 Fasilitas : <?= $Data_pesanan_paket->ket_paket ?>
                                             </td>
                                             <td>Rp <?= $Data_pesanan_paket->harga_paket ?>,-</td>
-                                            <td style="text-align: center;">
-                                                SIAP BERANGKAT
+                                            <td>
+                                                <?php if ($Data_pesanan_paket->status_paket == 'KONFIRMASI') :
+                                                    echo 'Siap Berangkat';
+                                                elseif ($Data_pesanan_paket->status_paket == 'BERANGKAT') :
+                                                    echo 'Berangkat';
+                                                elseif ($Data_pesanan_paket->status_paket == 'SELESAI') :
+                                                    echo 'Selesai';
+                                                endif; ?>
                                             </td>
                                         </tr>
                                     <?php

@@ -14,6 +14,19 @@ class Select_model extends CI_Model
         $query  = $this->db->get();
         return $query->result();
     }
+    function getDataRentalKosong($id_rental)
+    {
+        $jml_penumpang = $this->input->post('jml_penumpang');
+        $query = $this->db->select('*');
+        $query = $this->db->from('tbl_rental as A');
+        $query = $this->db->join('tbl_kendaraan as B', 'A.no_registrasi=B.no_registrasi');
+        $query = $this->db->join('tbl_sopir as C', 'A.id_sopir=C.id_sopir');
+        $query = $this->db->where('A.id_rental', $id_rental);
+        $query = $this->db->where('B.jml_penumpang >=', $jml_penumpang);
+        $query = $this->db->where('C.status', 'KOSONG');
+        $query = $this->db->get();
+        return $query->row_array();
+    }
     function getDataKendaraan()
     {
         // SQL
@@ -33,6 +46,7 @@ class Select_model extends CI_Model
         $query = $this->db->join('tbl_sopir as B', 'A.id_sopir=B.id_sopir');
         $query = $this->db->join('tbl_kendaraan as C', 'A.no_registrasi=C.no_registrasi');
         $query = $this->db->where('A.status !=', 'HAPUS');
+        $query = $this->db->where('B.status', 'KOSONG');
         $query  = $this->db->get();
         return $query->result();
     }
@@ -54,7 +68,19 @@ class Select_model extends CI_Model
         $query = $this->db->from('pesanan_rental as A');
         $query = $this->db->join('tbl_rental as B', 'A.id_rental=B.id_rental');
         $query = $this->db->join('tbl_pelanggan as C', 'A.id_pelanggan=C.id_pelanggan');
-        $query = $this->db->where('A.status_rental', 'KONFIRMASI');
+        // $query = $this->db->where('A.status_rental', 'KONFIRMASI');
+        $query = $this->db->order_by('A.no_rental', 'DESC');
+        $query  = $this->db->get();
+        return $query->result();
+    }
+    function getDataPesananRentalNew($tgl_awal, $tgl_akhir)
+    {
+        $query = $this->db->select('*');
+        $query = $this->db->from('pesanan_rental as A');
+        $query = $this->db->join('tbl_rental as B', 'A.id_rental=B.id_rental');
+        $query = $this->db->join('tbl_pelanggan as C', 'A.id_pelanggan=C.id_pelanggan');
+        $query = $this->db->where('A.tgl_lunas >=', $tgl_awal);
+        $query = $this->db->where('A.tgl_lunas <=', $tgl_akhir);
         $query = $this->db->order_by('A.no_rental', 'DESC');
         $query  = $this->db->get();
         return $query->result();
@@ -65,6 +91,18 @@ class Select_model extends CI_Model
         $query = $this->db->from('pesanan_paket as A');
         $query = $this->db->join('tbl_paket as B', 'B.id_paket=A.id_paket');
         $query = $this->db->join('tbl_pelanggan as C', 'C.id_pelanggan=A.id_pelanggan');
+        $query = $this->db->order_by('A.no_pesanan', 'DESC');
+        $query  = $this->db->get();
+        return $query->result();
+    }
+    function getDataPesananPaketNew($tgl_awal, $tgl_akhir)
+    {
+        $query = $this->db->select('*');
+        $query = $this->db->from('pesanan_paket as A');
+        $query = $this->db->join('tbl_paket as B', 'B.id_paket=A.id_paket');
+        $query = $this->db->join('tbl_pelanggan as C', 'C.id_pelanggan=A.id_pelanggan');
+        $query = $this->db->where('A.tgl_lunas >=', $tgl_awal);
+        $query = $this->db->where('A.tgl_lunas <=', $tgl_akhir);
         $query = $this->db->order_by('A.no_pesanan', 'DESC');
         $query  = $this->db->get();
         return $query->result();

@@ -11,9 +11,9 @@ class ControllerHalamanUtama extends CI_Controller
         if ($cek_data['level'] == 'ADMIN') :
             redirect('admin');
         elseif ($cek_data['level'] == 'PEMILIK') :
-            redirect('ketua');
+            redirect('pemilik');
         elseif ($cek_data['level'] == 'SOPIR') :
-            redirect('pengurus');
+            redirect('sopir');
         elseif ($cek_data['level'] == 'PELANGGAN') :
             redirect('pelanggan');
         else :
@@ -26,9 +26,9 @@ class ControllerHalamanUtama extends CI_Controller
         if ($cek_data['level'] == 'ADMIN') :
             redirect('admin');
         elseif ($cek_data['level'] == 'PEMILIK') :
-            redirect('ketua');
+            redirect('pemilik');
         elseif ($cek_data['level'] == 'SOPIR') :
-            redirect('pengurus');
+            redirect('sopir');
         elseif ($cek_data['level'] == 'PELANGGAN') :
             redirect('pelanggan');
         else :

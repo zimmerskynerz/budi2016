@@ -21,6 +21,7 @@
                                         <th style="text-align: center;">Wisata</th>
                                         <th style="text-align: center;">Destinasi</th>
                                         <th style="text-align: center;">Lama</th>
+                                        <th style="text-align: center;">Penumpang</th>
                                         <th style="text-align: center;">Keterangan Paket</th>
                                         <th style="text-align: center;">Modal</th>
                                         <th style="text-align: center;">Standard</th>
@@ -37,6 +38,7 @@
                                             <td><?= $Data_paket->nm_paket ?></td>
                                             <td><?= $Data_paket->destination ?></td>
                                             <td><?= $Data_paket->jml_hari ?> Hari</td>
+                                            <td><?= $Data_paket->jml_penumpang ?> Orang</td>
                                             <td>
                                                 Fasilitas : <?= $Data_paket->ket_paket ?>
                                             </td>
@@ -52,6 +54,7 @@
                                                 data-hg_standard="<?= $Data_paket->hg_standard ?>" 
                                                 data-hg_minim="<?= $Data_paket->hg_minim ?>" 
                                                 data-destination="<?= $Data_paket->destination ?>"
+                                                data-jml_penumpang="<?= $Data_paket->jml_penumpang ?>"
                                                 data-jml_hari="<?= $Data_paket->jml_hari ?>">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
@@ -99,6 +102,10 @@
                 <div class="form-group mb-3">
                     <label for="example-email">Lama Liburan</label>
                     <input type="number" id="jml_hari" name="jml_hari" name="example-email" class="form-control" placeholder="Masukkan Jumlah Hari Liburan">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="example-email">Jumlah Penumpang</label>
+                    <input type="number" id="jml_penumpang" name="jml_penumpang" name="example-email" class="form-control" placeholder="Masukkan Jumlah Penumpang">
                 </div>
                 <div class="form-group mb-3">
                     <label for="alamat">Keterangan Paket Wisata</label>
@@ -151,6 +158,10 @@
                     <input type="number" id="jml_hari" name="jml_hari" name="example-email" class="form-control" placeholder="Masukkan Jumlah Hari Liburan">
                 </div>
                 <div class="form-group mb-3">
+                    <label for="example-email">Jumlah Penumpang</label>
+                    <input type="number" id="jml_penumpang" name="jml_penumpang" name="example-email" class="form-control" placeholder="Masukkan Jumlah Penumpang">
+                </div>
+                <div class="form-group mb-3">
                     <label for="alamat">Keterangan Paket Wisata</label>
                     <textarea class="form-control" id="ket_paket" name="ket_paket" placeholder="Keterangan Paket Wisata" rows="5"></textarea>
                 </div>
@@ -186,6 +197,7 @@
         var hg_standard = $(this).data('hg_standard');
         var hg_minim = $(this).data('hg_minim');
         var jml_hari = $(this).data('jml_hari');
+        var jml_penumpang = $(this).data('jml_penumpang');
         $(".modal-body#detail_body #id_paket").val(id_paket);
         $(".modal-body#detail_body #nm_paket").val(nm_paket);
         $(".modal-body#detail_body #ket_paket").val(ket_paket);
@@ -194,6 +206,7 @@
         $(".modal-body#detail_body #hg_standard").val(hg_standard);
         $(".modal-body#detail_body #hg_minim").val(hg_minim);
         $(".modal-body#detail_body #jml_hari").val(jml_hari);
+        $(".modal-body#detail_body #jml_penumpang").val(jml_penumpang);
     })
 </script>
 <script>

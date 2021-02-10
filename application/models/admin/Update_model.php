@@ -186,7 +186,8 @@ class Update_model extends CI_Model
             'hg_modal'       => $this->input->post('hg_modal'),
             'hg_standard'    => $this->input->post('hg_standard'),
             'hg_minim'       => $this->input->post('hg_minim'),
-            'jml_hari'       => $this->input->post('jml_hari')
+            'jml_hari'       => $this->input->post('jml_hari'),
+            'jml_penumpang'       => $this->input->post('jml_penumpang')
         );
         $this->db->where('id_paket', $this->input->post('id_paket'));
         $this->db->update('tbl_paket', $data_paket);
@@ -278,5 +279,18 @@ class Update_model extends CI_Model
         );
         $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
         $this->db->update('pesanan_paket', $data);
+    }
+    function simpan_sopir($id_sopir)
+    {
+        $data = array(
+            'id_rental' => $this->input->post('id_rental')
+        );
+        $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+        $this->db->update('pesanan_paket', $data);
+        $data_sopir = array(
+            'status' => 'BERANGKAT'
+        );
+        $this->db->where('id_sopir', $id_sopir);
+        $this->db->update('tbl_sopir', $data_sopir);
     }
 }

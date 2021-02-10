@@ -18,7 +18,7 @@
                                     <tr>
                                         <th style="text-align: center;">No</th>
                                         <th style="text-align: center;">No Registrasi</th>
-                                        <th style="text-align: center;">Foto Kendaraan</th>
+                                        <th style="text-align: center;">Foto</th>
                                         <th style="text-align: center;">Keterangan</th>
                                         <th style="text-align: center;">Sopir</th>
                                         <th style="text-align: center;">Harga</th>

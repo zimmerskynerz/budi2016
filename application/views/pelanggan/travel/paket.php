@@ -20,6 +20,7 @@
                                         <th style="text-align: center;">Wisata</th>
                                         <th style="text-align: center;">Destinasi</th>
                                         <th style="text-align: center;">Lama</th>
+                                        <th style="text-align: center;">Penumpang</th>
                                         <th style="text-align: center;">Keterangan Paket</th>
                                         <th style="text-align: center;">Harga</th>
                                         <th style="text-align: center;">Aksi</th>
@@ -34,6 +35,7 @@
                                             <td><?= $Data_paket->nm_paket ?></td>
                                             <td><?= $Data_paket->destination ?></td>
                                             <td><?= $Data_paket->jml_hari ?> Hari</td>
+                                            <td><?= $Data_paket->jml_penumpang ?> Orang</td>
                                             <td>
                                                 Fasilitas : <?= $Data_paket->ket_paket ?>
                                             </td>
@@ -78,7 +80,6 @@
                     <label for="example-email">Nama Paket Wisata</label>
                     <input readonly type="text" id="nm_paket" name="nm_paket" name="example-email" class="form-control" required placeholder="Masukkan Nama Paket Wisata">
                     <input readonly type="text" id="id_paket" hidden name="id_paket" name="example-email" class="form-control" required placeholder="Masukkan Nama Paket Wisata">
-                    <small>* Tiket berlaku untuk 2 Orang</small>
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Tujuan Wisata</label>

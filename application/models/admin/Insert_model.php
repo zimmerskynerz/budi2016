@@ -110,6 +110,7 @@ class Insert_model extends CI_Model
             'hg_standard'    => $this->input->post('hg_standard'),
             'hg_minim'       => $this->input->post('hg_minim'),
             'jml_hari'       => $this->input->post('jml_hari'),
+            'jml_penumpang'  => $this->input->post('jml_penumpang'),
             'status'         => 'ADA'
         );
         $this->db->insert('tbl_paket', $data_paket);

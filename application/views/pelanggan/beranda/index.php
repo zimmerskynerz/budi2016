@@ -63,7 +63,6 @@
                                         <th style="text-align: center;">Hari</th>
                                         <th style="text-align: center;">Keterangan Paket</th>
                                         <th style="text-align: center;">Harga</th>
-                                        <th style="text-align: center;">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,12 +77,10 @@
                                             <td><?= date('d F Y', strtotime($Data_pesanan_paket->tgl_selesai)) ?></td>
                                             <td><?= $Data_pesanan_paket->jml_hari ?> Hari</td>
                                             <td>
-                                                Fasilitas : <?= $Data_pesanan_paket->ket_paket ?>
+                                                <?= $Data_pesanan_paket->ket_paket ?><br><br>
+                                                Jumlah Penumpang : <?= $Data_pesanan_paket->jml_penumpang ?> Orang
                                             </td>
                                             <td>Rp <?= $Data_pesanan_paket->harga_paket ?>,-</td>
-                                            <td style="text-align: center;">
-                                                SIAP BERANGKAT
-                                            </td>
                                         </tr>
                                     <?php
                                         $no++;

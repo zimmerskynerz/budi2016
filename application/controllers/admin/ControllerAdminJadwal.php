@@ -23,12 +23,14 @@ class ControllerAdminJadwal extends CI_Controller
         if ($cek_data['level'] == 'ADMIN') :
             $data_pesanan_rental        = $this->select_model->getDataPesananRentalJadwal();
             $pesanan_paket              = $this->select_model->getDataPesananPaket();
+            $data_rental                = $this->select_model->getDataRental();
             $data = array(
-                'folder'       => 'jadwal',
-                'halaman'      => 'jadwal_list',
+                'folder'          => 'jadwal',
+                'halaman'         => 'jadwal_list',
                 // Halaman data sopir
                 'data_pesanan_rental'   => $data_pesanan_rental,
-                'pesanan_paket'    => $pesanan_paket
+                'pesanan_paket'    => $pesanan_paket,
+                'data_rental'      => $data_rental
             );
             $this->load->view('admin/include/index', $data);
         elseif ($cek_data['level'] == 'PEMILIK') :
@@ -66,6 +68,7 @@ class ControllerAdminJadwal extends CI_Controller
                 // Data kendaraan
                 'pesanan_paket'    => $pesanan_paket
             );
+
             $this->load->view('admin/include/index', $data);
         elseif ($cek_data['level'] == 'PEMILIK') :
             redirect('pemilik');
@@ -77,18 +80,19 @@ class ControllerAdminJadwal extends CI_Controller
             redirect('login');
         endif;
     }
-    public function crudpaket()
+    public function crudjadwal()
     {
-        if (isset($_POST['simpan_kendaraan'])) :
-            # code...
-            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Menambah Guru!</div>');
-            redirect('admin/rental/kendaraan');
-        endif;
-        if (isset($_POST['ubah_kendaraan'])) :
-        # code...
-        endif;
-        if (isset($_POST['hapus_kendaraan'])) :
-        # code...
+        if (isset($_POST['simpan_sopir'])) :
+            $id_rental  = $this->input->post('id_rental');
+            $cek_rental = $this->select_model->getDataRentalKosong($id_rental);
+            $id_sopir   = $cek_rental['id_sopir'];
+            if ($cek_rental > 0) :
+                $this->update_model->simpan_sopir($id_sopir);
+                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Memilih Sopir dan Kendaraan!</div>');
+            else :
+                $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Jumlah Penumpang Kendaraan Kurang Dari Yang Dipesan!</div>');
+            endif;
+            redirect('admin/jadwal/list_jadwal');
         endif;
     }
 }
