@@ -86,22 +86,42 @@ class ControllerPelangganTravel extends CI_Controller
                 if ($cek_tgl_berangkt > 0) :
                     $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Mobil Sudah Dirental!</div>');
                 else :
-                    // $this->insert_model->sewa_rental($no_rental_hari_ini, $tgl_berangkat, $tgl_selesai);
+                    $this->insert_model->sewa_rental($no_rental_hari_ini, $tgl_berangkat, $tgl_selesai);
                     $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Merental Mobil! Silahkan Menuju Menu Pesanan Rental!</div>');
                 endif;
             endif;
             redirect('pelanggan/travel/rental');
         endif;
         if (isset($_POST['pilih_paket'])) :
+            $cek_rental_pesan = $this->select_model->getKodePaket();
+            $max_pesanan = $cek_rental_pesan['max_kode'];
+            $max_fix = substr($max_pesanan, -3);
+            $no_rental = $max_fix + 1;
+            $tahun = date('Y');
+            $bulan = date('m');
+            $tgl = date('d');
+            $no_paket_hari_ini = $tahun . $bulan . $tgl . sprintf("%03s", $no_rental);
             $hg_minim       = $this->input->post('hg_minim');
             $tawar_harga    = $this->input->post('tawar_harga');
             $hg_standard    = $this->input->post('hg_standard');
-            if ($hg_minim > $tawar_harga) :
+            if ($tawar_harga == null) :
+                $harga_paket = $hg_standard;
+                $this->insert_model->pilih_paket($harga_paket, $no_paket_hari_ini);
+                $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Paket Berhasil Dipilih! Silahkan Masuk ke Menu Pesanan Paket</div>');
             else :
-                if ($hg_standard < $tawar_harga) :
+                if ($hg_minim > $tawar_harga) :
+                    $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Penawaran terlalu rendah!</div>');
                 else :
+                    if ($hg_standard < $tawar_harga) :
+                        $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-success" id="pesan_gagal" role="alert">Penawaran Terlalu tinggi! Silahkan Menuju Menu Pesanan Rental!</div>');
+                    else :
+                        $harga_paket = $tawar_harga;
+                        $this->insert_model->pilih_paket($harga_paket, $no_paket_hari_ini);
+                        $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Paket Berhasil Dipilih! Silahkan Masuk ke Menu Pesanan Paket</div>');
+                    endif;
                 endif;
             endif;
+            redirect('pelanggan/travel/paket');
         endif;
     }
 }

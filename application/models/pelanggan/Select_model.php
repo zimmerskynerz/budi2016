@@ -11,6 +11,15 @@ class Select_model extends CI_Model
         $query  = $this->db->get();
         return $query->row_array();
     }
+    function getKodePaket()
+    {
+        $tgl_ini = date('Y-m-d');
+        $query  = $this->db->select('max(no_pesanan) as max_kode');
+        $query  = $this->db->from('pesanan_paket');
+        $query  = $this->db->where('tgl_pesan', $tgl_ini);
+        $query  = $this->db->get();
+        return $query->row_array();
+    }
     function getDataPesananRental($id_pelanggan)
     {
         $query  = $this->db->select('*');
@@ -18,6 +27,15 @@ class Select_model extends CI_Model
         $query  = $this->db->join('tbl_rental as B', 'A.id_rental=B.id_rental');
         $query  = $this->db->join('tbl_sopir as C', 'B.id_sopir=C.id_sopir');
         $query  = $this->db->join('tbl_kendaraan as D', 'B.no_registrasi=D.no_registrasi');
+        $query  = $this->db->where('A.id_pelanggan', $id_pelanggan);
+        $query  = $this->db->get();
+        return $query->result();
+    }
+    function getDataPesananPaket($id_pelanggan)
+    {
+        $query = $this->db->select('*');
+        $query = $this->db->from('pesanan_paket as A');
+        $query = $this->db->join('tbl_paket as B', 'A.id_paket=B.id_paket');
         $query  = $this->db->where('A.id_pelanggan', $id_pelanggan);
         $query  = $this->db->get();
         return $query->result();

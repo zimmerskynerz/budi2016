@@ -114,6 +114,33 @@ class Update_model extends CI_Model
             $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Mengirim Bukti Lunas!</div>');
         };
     }
+    // Kelola Bukti DP Paket
+    function kirim_bukti_paket_dp()
+    {
+        $config['upload_path']   = './assets/bukti_tranfer';
+        $config['allowed_types'] = 'jpeg|jpg|png|gif';
+        $config['encrypt_name']  = true;
+        $config['overwrite']     = true;
+        $config['max_size']      = 20024; // 10MB
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('bukti_dp')) {
+            $this->session->set_flashdata('pesan_gagal', '<div class="alert alert-danger" id="pesan_gagal" role="alert">Gagal Mengirim Bukti Tranfer!</div>');
+        } else {
+            $_FILES['file']['name'] = $_FILES['bukti_dp']['name'];
+            $_FILES['file']['type'] = $_FILES['bukti_dp']['type'];
+            $_FILES['file']['tmp_name'] = $_FILES['bukti_dp']['tmp_name'];
+            $_FILES['file']['size'] = $_FILES['bukti_dp']['size'];
+            $uploadData = $this->upload->data();
+            $data_dp = array(
+                'tgl_dp'            => date('Y-m-d'),
+                'bukti_dp'          => $uploadData['file_name'],
+                'status_paket'      => 'DP'
+            );
+            $this->db->where('no_pesanan', $this->input->post('no_pesanan'));
+            $this->db->update('pesanan_paket', $data_dp);
+            $this->session->set_flashdata('pesan_berhasil', '<div class="alert alert-success" id="pesan_berhasil" role="alert">Berhasil Mengirim Bukti DP!</div>');
+        }
+    }
     // Kelola Sopir
     function reset_password_admin()
     {

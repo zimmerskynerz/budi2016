@@ -42,8 +42,34 @@ class ControllerPelangganPesanan extends CI_Controller
             redirect('login');
         endif;
     }
+    public function paket()
+    {
+        $cek_data = $this->db->get_where('tbl_login', ['email' => $this->session->userdata('email')])->row_array();
+        $identitas = $this->db->get_where('tbl_pelanggan', ['id_login' => $this->session->userdata('id_login')])->row_array();
+        if ($cek_data['level'] == 'PELANGGAN') :
+            $id_pelanggan               = $identitas['id_pelanggan'];
+            $data_pesanan_paket         = $this->select_model->getDataPesananPaket($id_pelanggan);
+            $data = array(
+                'folder'       => 'pesanan',
+                'halaman'      => 'paket',
+                'identitas'    => $identitas,
+                // Halaman data sopir
+                'data_pesanan_paket'   => $data_pesanan_paket
+            );
+            $this->load->view('pelanggan/include/index', $data);
+        elseif ($cek_data['level'] == 'PEMILIK') :
+            redirect('pemilik');
+        elseif ($cek_data['level'] == 'SOPIR') :
+            redirect('sopir');
+        elseif ($cek_data['level'] == 'ADMIN') :
+            redirect('admin');
+        else :
+            redirect('login');
+        endif;
+    }
     public function crudpesanan()
     {
+        // Kelola Rental
         if (isset($_POST['kirim_bukti_rental_dp'])) :
             $this->update_model->kirim_bukti_dp_rental();
             redirect('pelanggan/pesanan/rental');
@@ -59,6 +85,12 @@ class ControllerPelangganPesanan extends CI_Controller
         if (isset($_POST['kirim_bukti_rental_lunas_ulang'])) :
             $this->update_model->kirim_bukti_rental_lunas_ulang();
             redirect('pelanggan/pesanan/rental');
+        endif;
+        // Kelola Paket
+        if (isset($_POST['kirim_bukti_paket_dp'])) :
+            # code...
+            $this->update_model->kirim_bukti_paket_dp();
+            redirect('pelanggan/travel/paket');
         endif;
     }
 }

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2021 at 09:17 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.3.25
+-- Waktu pembuatan: 10 Feb 2021 pada 07.31
+-- Versi server: 10.4.17-MariaDB
+-- Versi PHP: 7.3.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pesanan_paket`
+-- Struktur dari tabel `pesanan_paket`
 --
 
 CREATE TABLE `pesanan_paket` (
@@ -38,13 +38,21 @@ CREATE TABLE `pesanan_paket` (
   `tgl_lunas` date DEFAULT NULL,
   `bukti_dp` text DEFAULT NULL,
   `bukti_lunas` text DEFAULT NULL,
+  `harga_paket` int(9) DEFAULT NULL,
   `status_paket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pesanan_paket`
+--
+
+INSERT INTO `pesanan_paket` (`no_pesanan`, `id_paket`, `id_pelanggan`, `tgl_pesan`, `tgl_berangkat`, `tgl_selesai`, `tgl_dp`, `tgl_lunas`, `bukti_dp`, `bukti_lunas`, `harga_paket`, `status_paket`) VALUES
+('20210210001', 1, 1, '2021-02-10', '2021-02-10', '2021-02-16', NULL, NULL, NULL, NULL, 15000000, 'PROSES');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pesanan_rental`
+-- Struktur dari tabel `pesanan_rental`
 --
 
 CREATE TABLE `pesanan_rental` (
@@ -64,16 +72,17 @@ CREATE TABLE `pesanan_rental` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pesanan_rental`
+-- Dumping data untuk tabel `pesanan_rental`
 --
 
 INSERT INTO `pesanan_rental` (`no_rental`, `id_rental`, `id_pelanggan`, `tgl_pesan`, `tgl_dp`, `tgl_lunas`, `tgl_berangkat`, `tgl_selesai`, `jml_hari`, `harga_total`, `bukti_dp`, `bukti_lunas`, `status_rental`) VALUES
-('20210209001', 2, 1, '2021-02-09', '2021-02-10', '2021-02-10', '2021-02-09', '2021-02-28', 19, 2337000, '0e03879be7ac0d7c40adcaf8608ee347.jpg', '04b152a2e33e87ef7263e6f7bb9a3bb2.jpg', 'KONFIRMASI');
+('20210209001', 2, 1, '2021-02-09', '2021-02-10', '2021-02-10', '2021-02-09', '2021-02-28', 19, 2337000, '0e03879be7ac0d7c40adcaf8608ee347.jpg', '04b152a2e33e87ef7263e6f7bb9a3bb2.jpg', 'KONFIRMASI'),
+('20210210001', 2, 1, '2021-02-10', '2021-02-10', '2021-02-10', '2021-03-09', '2021-03-09', 1, 123000, '9d086eca4d5f9c874b7854221877a415.png', 'a76542f14bfaba0c11bc103f9cdfbcc0.png', 'LUNAS');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_kendaraan`
+-- Struktur dari tabel `tbl_kendaraan`
 --
 
 CREATE TABLE `tbl_kendaraan` (
@@ -90,7 +99,7 @@ CREATE TABLE `tbl_kendaraan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_kendaraan`
+-- Dumping data untuk tabel `tbl_kendaraan`
 --
 
 INSERT INTO `tbl_kendaraan` (`no_registrasi`, `merk`, `type`, `jenis`, `th_pembuatan`, `warna`, `berlaku_stnk`, `jml_penumpang`, `status`, `foto_kendaraan`) VALUES
@@ -99,7 +108,7 @@ INSERT INTO `tbl_kendaraan` (`no_registrasi`, `merk`, `type`, `jenis`, `th_pembu
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_login`
+-- Struktur dari tabel `tbl_login`
 --
 
 CREATE TABLE `tbl_login` (
@@ -113,7 +122,7 @@ CREATE TABLE `tbl_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_login`
+-- Dumping data untuk tabel `tbl_login`
 --
 
 INSERT INTO `tbl_login` (`id_login`, `email`, `password`, `no_hp`, `level`, `status`, `tgl_gabung`) VALUES
@@ -126,7 +135,7 @@ INSERT INTO `tbl_login` (`id_login`, `email`, `password`, `no_hp`, `level`, `sta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_paket`
+-- Struktur dari tabel `tbl_paket`
 --
 
 CREATE TABLE `tbl_paket` (
@@ -142,7 +151,7 @@ CREATE TABLE `tbl_paket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_paket`
+-- Dumping data untuk tabel `tbl_paket`
 --
 
 INSERT INTO `tbl_paket` (`id_paket`, `nm_paket`, `destination`, `ket_paket`, `hg_modal`, `hg_standard`, `hg_minim`, `jml_hari`, `status`) VALUES
@@ -152,7 +161,7 @@ INSERT INTO `tbl_paket` (`id_paket`, `nm_paket`, `destination`, `ket_paket`, `hg
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_pelanggan`
+-- Struktur dari tabel `tbl_pelanggan`
 --
 
 CREATE TABLE `tbl_pelanggan` (
@@ -165,7 +174,7 @@ CREATE TABLE `tbl_pelanggan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_pelanggan`
+-- Dumping data untuk tabel `tbl_pelanggan`
 --
 
 INSERT INTO `tbl_pelanggan` (`id_pelanggan`, `id_login`, `nm_pelanggan`, `alamat`, `foto_ktp`, `status`) VALUES
@@ -174,7 +183,7 @@ INSERT INTO `tbl_pelanggan` (`id_pelanggan`, `id_login`, `nm_pelanggan`, `alamat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_rental`
+-- Struktur dari tabel `tbl_rental`
 --
 
 CREATE TABLE `tbl_rental` (
@@ -186,7 +195,7 @@ CREATE TABLE `tbl_rental` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_rental`
+-- Dumping data untuk tabel `tbl_rental`
 --
 
 INSERT INTO `tbl_rental` (`id_rental`, `id_sopir`, `no_registrasi`, `harga`, `status`) VALUES
@@ -196,7 +205,7 @@ INSERT INTO `tbl_rental` (`id_rental`, `id_sopir`, `no_registrasi`, `harga`, `st
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_sopir`
+-- Struktur dari tabel `tbl_sopir`
 --
 
 CREATE TABLE `tbl_sopir` (
@@ -210,7 +219,7 @@ CREATE TABLE `tbl_sopir` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbl_sopir`
+-- Dumping data untuk tabel `tbl_sopir`
 --
 
 INSERT INTO `tbl_sopir` (`id_login`, `id_sopir`, `nm_sopir`, `alamat`, `foto`, `sim`, `status`) VALUES
@@ -222,7 +231,7 @@ INSERT INTO `tbl_sopir` (`id_login`, `id_sopir`, `nm_sopir`, `alamat`, `foto`, `
 --
 
 --
--- Indexes for table `pesanan_paket`
+-- Indeks untuk tabel `pesanan_paket`
 --
 ALTER TABLE `pesanan_paket`
   ADD PRIMARY KEY (`no_pesanan`),
@@ -230,7 +239,7 @@ ALTER TABLE `pesanan_paket`
   ADD KEY `use_id_pelanggan03` (`id_pelanggan`);
 
 --
--- Indexes for table `pesanan_rental`
+-- Indeks untuk tabel `pesanan_rental`
 --
 ALTER TABLE `pesanan_rental`
   ADD PRIMARY KEY (`no_rental`),
@@ -238,13 +247,13 @@ ALTER TABLE `pesanan_rental`
   ADD KEY `use_id_pelanggan01` (`id_pelanggan`);
 
 --
--- Indexes for table `tbl_kendaraan`
+-- Indeks untuk tabel `tbl_kendaraan`
 --
 ALTER TABLE `tbl_kendaraan`
   ADD PRIMARY KEY (`no_registrasi`);
 
 --
--- Indexes for table `tbl_login`
+-- Indeks untuk tabel `tbl_login`
 --
 ALTER TABLE `tbl_login`
   ADD PRIMARY KEY (`id_login`),
@@ -252,20 +261,20 @@ ALTER TABLE `tbl_login`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `tbl_paket`
+-- Indeks untuk tabel `tbl_paket`
 --
 ALTER TABLE `tbl_paket`
   ADD PRIMARY KEY (`id_paket`);
 
 --
--- Indexes for table `tbl_pelanggan`
+-- Indeks untuk tabel `tbl_pelanggan`
 --
 ALTER TABLE `tbl_pelanggan`
   ADD PRIMARY KEY (`id_pelanggan`),
   ADD KEY `use_id_login09` (`id_login`);
 
 --
--- Indexes for table `tbl_rental`
+-- Indeks untuk tabel `tbl_rental`
 --
 ALTER TABLE `tbl_rental`
   ADD PRIMARY KEY (`id_rental`),
@@ -273,79 +282,79 @@ ALTER TABLE `tbl_rental`
   ADD KEY `use_mobil01` (`no_registrasi`);
 
 --
--- Indexes for table `tbl_sopir`
+-- Indeks untuk tabel `tbl_sopir`
 --
 ALTER TABLE `tbl_sopir`
   ADD PRIMARY KEY (`id_sopir`),
   ADD KEY `use_id_login01` (`id_login`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tbl_login`
+-- AUTO_INCREMENT untuk tabel `tbl_login`
 --
 ALTER TABLE `tbl_login`
   MODIFY `id_login` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `tbl_paket`
+-- AUTO_INCREMENT untuk tabel `tbl_paket`
 --
 ALTER TABLE `tbl_paket`
   MODIFY `id_paket` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_pelanggan`
+-- AUTO_INCREMENT untuk tabel `tbl_pelanggan`
 --
 ALTER TABLE `tbl_pelanggan`
   MODIFY `id_pelanggan` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tbl_rental`
+-- AUTO_INCREMENT untuk tabel `tbl_rental`
 --
 ALTER TABLE `tbl_rental`
   MODIFY `id_rental` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tbl_sopir`
+-- AUTO_INCREMENT untuk tabel `tbl_sopir`
 --
 ALTER TABLE `tbl_sopir`
   MODIFY `id_sopir` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `pesanan_paket`
+-- Ketidakleluasaan untuk tabel `pesanan_paket`
 --
 ALTER TABLE `pesanan_paket`
   ADD CONSTRAINT `use_id_paket03` FOREIGN KEY (`id_paket`) REFERENCES `tbl_paket` (`id_paket`),
   ADD CONSTRAINT `use_id_pelanggan03` FOREIGN KEY (`id_pelanggan`) REFERENCES `tbl_pelanggan` (`id_pelanggan`);
 
 --
--- Constraints for table `pesanan_rental`
+-- Ketidakleluasaan untuk tabel `pesanan_rental`
 --
 ALTER TABLE `pesanan_rental`
   ADD CONSTRAINT `use_id_pelanggan01` FOREIGN KEY (`id_pelanggan`) REFERENCES `tbl_pelanggan` (`id_pelanggan`),
   ADD CONSTRAINT `use_id_rental01` FOREIGN KEY (`id_rental`) REFERENCES `tbl_rental` (`id_rental`);
 
 --
--- Constraints for table `tbl_pelanggan`
+-- Ketidakleluasaan untuk tabel `tbl_pelanggan`
 --
 ALTER TABLE `tbl_pelanggan`
   ADD CONSTRAINT `use_id_login09` FOREIGN KEY (`id_login`) REFERENCES `tbl_login` (`id_login`);
 
 --
--- Constraints for table `tbl_rental`
+-- Ketidakleluasaan untuk tabel `tbl_rental`
 --
 ALTER TABLE `tbl_rental`
   ADD CONSTRAINT `use_id_sopir01` FOREIGN KEY (`id_sopir`) REFERENCES `tbl_login` (`id_login`),
   ADD CONSTRAINT `use_mobil01` FOREIGN KEY (`no_registrasi`) REFERENCES `tbl_kendaraan` (`no_registrasi`);
 
 --
--- Constraints for table `tbl_sopir`
+-- Ketidakleluasaan untuk tabel `tbl_sopir`
 --
 ALTER TABLE `tbl_sopir`
   ADD CONSTRAINT `use_id_login01` FOREIGN KEY (`id_login`) REFERENCES `tbl_login` (`id_login`);

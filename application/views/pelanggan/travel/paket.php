@@ -76,30 +76,31 @@
                 <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>" style="display: none">
                 <div class="form-group mb-3">
                     <label for="example-email">Nama Paket Wisata</label>
-                    <input readonly type="text" id="nm_paket" name="nm_paket" name="example-email" class="form-control" placeholder="Masukkan Nama Paket Wisata">
-                    <input readonly type="text" id="id_paket" hidden name="id_paket" name="example-email" class="form-control" placeholder="Masukkan Nama Paket Wisata">
+                    <input readonly type="text" id="nm_paket" name="nm_paket" name="example-email" class="form-control" required placeholder="Masukkan Nama Paket Wisata">
+                    <input readonly type="text" id="id_paket" hidden name="id_paket" name="example-email" class="form-control" required placeholder="Masukkan Nama Paket Wisata">
                     <small>* Tiket berlaku untuk 2 Orang</small>
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Tujuan Wisata</label>
-                    <input readonly type="text" id="destination" name="destination" name="example-email" class="form-control" placeholder="Masukkan Tujuan WIsata">
+                    <input readonly type="text" id="destination" name="destination" name="example-email" class="form-control" required placeholder="Masukkan Tujuan WIsata">
+                    <input readonly type="text" hidden value="<?= $identitas['id_pelanggan'] ?>" id="id_pelanggan" name="id_pelanggan" name="example-email" class="form-control" required placeholder="Masukkan Tujuan WIsata">
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Lama Liburan</label>
-                    <input readonly type="number" id="jml_hari" name="jml_hari" name="example-email" class="form-control" placeholder="Masukkan Jumlah Hari Liburan">
+                    <input readonly type="number" id="jml_hari" name="jml_hari" name="example-email" class="form-control" required placeholder="Masukkan Jumlah Hari Liburan">
                 </div>
                 <div class="form-group mb-3">
                     <label for="alamat">Keterangan Paket Wisata</label>
-                    <textarea readonly class="form-control" id="ket_paket" name="ket_paket" placeholder="Keterangan Paket Wisata" rows="5"></textarea>
+                    <textarea readonly class="form-control" id="ket_paket" name="ket_paket" required placeholder="Keterangan Paket Wisata" rows="5"></textarea>
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Harga Normal</label>
-                    <input readonly type="number" id="hg_standard" name="hg_standard" name="example-email" class="form-control" placeholder="Masukkan Harga Standard">
-                    <input hidden type="number" id="hg_minim" name="hg_minim" name="example-email" class="form-control" placeholder="Masukkan Harga Standard">
+                    <input readonly type="number" id="hg_standard" name="hg_standard" name="example-email" class="form-control" required placeholder="Masukkan Harga Standard">
+                    <input hidden type="number" id="hg_minim" name="hg_minim" name="example-email" class="form-control" required placeholder="Masukkan Harga Standard">
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Tanggal Liburan</label>
-                    <input type="date" id="tgl_berangkat" name="tgl_berangkat" name="example-email" class="form-control" placeholder="Masukkan Jumlah Hari Liburan">
+                    <input type="date" min="<?= date('Y-m-d') ?>" id="tgl_berangkat" name="tgl_berangkat" name="example-email" class="form-control" required placeholder="Masukkan Jumlah Hari Liburan">
                 </div>
                 <div class="form-group mb-3">
                     <label for="example-email">Penawaran Harga</label>
